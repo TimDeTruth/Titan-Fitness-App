@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Titan</string>
+    <string name="app_log_in">Log In</string>
+    <string name="app_log_out">Log Out</string>
+
+    <string name="app_title">TITAN</string>
 </resources>

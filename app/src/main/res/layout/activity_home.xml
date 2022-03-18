@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".HomeActivity">
+
+    <Button
+        android:id="@+id/button_home_workout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="50px"
+        android:text="Workout" />
+
+    <Button
+        android:id="@+id/button_home_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="50px"
+        android:text="Progress" />
+
+    <Button
+        android:id="@+id/button_home_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="50px"
+        android:text="Settings" />
+
+
+    <Button
+
+        android:id="@+id/button_home_quick_exercise"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_margin="50dp"
+        android:background="@drawable/circle_button"
+        android:padding="15dp"
+        android:text="Quick Exercise"
+        android:textAppearance="?android:textAppearanceLarge" />
+
+</LinearLayout>
