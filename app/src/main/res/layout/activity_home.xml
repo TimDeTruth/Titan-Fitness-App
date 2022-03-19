@@ -9,12 +9,13 @@
     tools:context=".HomeActivity">
 
     <Button
-        android:id="@+id/button_home_workout"
+        android:id="@+id/button_home_exercise"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="50px"
-        android:text="Workout"
-        android:textColor="@color/design_default_color_error" />
+        android:text="Exercise"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/button_home_progress"
@@ -22,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="50px"
         android:text="Progress"
-        android:textColor="@color/design_default_color_error" />
+        android:textColor="@color/design_default_color_error"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/button_home_settings"
@@ -30,7 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="50px"
         android:text="Settings"
-        android:textColor="@color/design_default_color_error" />
+        android:textColor="@color/design_default_color_error"
+        android:textSize="20sp" />
 
 
     <Button
@@ -39,11 +42,12 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:layout_margin="50dp"
+        android:layout_marginVertical="500px"
         android:background="@drawable/circle_button"
         android:padding="15dp"
         android:text="Quick Exercise"
         android:textAppearance="?android:textAppearanceLarge"
-        android:textColor="@color/design_default_color_error" />
+        android:textColor="@color/design_default_color_error"
+        android:textSize="20sp" />
 
 </LinearLayout>

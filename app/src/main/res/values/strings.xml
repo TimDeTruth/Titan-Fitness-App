@@ -7,7 +7,19 @@
 
     <string-array name="workout_list">
         <item>Choose exercise</item>
-        <item>Push ups</item>
+        <item>Upper Body</item>
+        <item>Push Ups</item>
+        <item>Dips</item>
+        <item>Pull Ups</item>
+        <item> </item>
+        <item>Lower Body</item>
         <item>Squats</item>
+        <item>Lunges</item>
+        <item>Bulgarian Split Squats</item>
+        <item> </item>
+        <item>Core</item>
+        <item>Plank</item>
+        <item>Leg Raises</item>
+        <item>Russian Twists</item>
     </string-array>
 </resources>

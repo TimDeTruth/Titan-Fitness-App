@@ -13,10 +13,11 @@
         android:id="@+id/textView_workout_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/font_greek"
         android:gravity="center"
         android:text="Exercise"
         android:textColor="@color/design_default_color_error"
-        android:textSize="24sp" />
+        android:textSize="48sp" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gif_workout"
@@ -32,6 +33,7 @@
         android:layout_gravity="center"
         android:layout_margin="20dp"
         android:background="@drawable/circle_button"
+        android:fontFamily="@font/font_greek"
         android:padding="15dp"
         android:text="Start"
         android:textAppearance="?android:textAppearanceLarge"
