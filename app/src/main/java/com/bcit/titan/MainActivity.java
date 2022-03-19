@@ -25,7 +25,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -35,7 +38,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
-    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +48,13 @@ public class MainActivity extends AppCompatActivity {
         // hide ActionBar
         getSupportActionBar().hide();
 
-//        db = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
 
 
         View login = findViewById(R.id.button_bottomNav_login);
         Intent intent = new Intent(this, HomeActivity.class);
-        mAuth=FirebaseAuth.getInstance();
+
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("The username: " + userName.getText().toString());
                 System.out.println("The password: " + password.getText().toString());
 
-/*                List<User> user = new ArrayList<User>();
+                List<User> user = new ArrayList<User>();
 
                 db.collection("users")
                         .get()
@@ -88,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
                                         for (int i = 0; i < user.size(); i++) {
                                             System.out.println("Firebase User: " + user.get(i).getUsername());
                                             System.out.println("Firebase User: " + user.get(i).getPassword());
+                                            if(userNameStr.equals(user.get(i).getUsername())
+                                                    && passwordStr.equals(user.get(i).getPassword())){
+                                                startActivity(intent);
+                                            }
                                         }
 
                                     }
@@ -97,17 +104,14 @@ public class MainActivity extends AppCompatActivity {
 
                                 User[] usersArray = user.toArray(new User[user.size()]);
                             }
-                        });*/
+                        });
 
-                mAuth.signInWithEmailAndPassword(userNameStr, passwordStr).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                    }
-
-                });
-
-
-
+//                mAuth.signInWithEmailAndPassword(userNameStr, passwordStr).addOnCompleteListener(task -> {
+//                    if (task.isSuccessful()) {
+//                        startActivity(new Intent(MainActivity.this, HomeActivity.class));
+//                    }
+//
+//                });
 
             }
 
@@ -115,4 +119,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 }
