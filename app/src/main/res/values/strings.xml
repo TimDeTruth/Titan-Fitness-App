@@ -4,4 +4,10 @@
     <string name="app_log_out">Log Out</string>
 
     <string name="app_title">TITAN</string>
+
+    <string-array name="workout_list">
+        <item>Choose exercise</item>
+        <item>Push ups</item>
+        <item>Squats</item>
+    </string-array>
 </resources>

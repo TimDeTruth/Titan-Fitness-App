@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background"
     android:orientation="vertical"
     tools:context=".HomeActivity">
 
@@ -12,26 +13,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="50px"
-        android:text="Workout" />
+        android:text="Workout"
+        android:textColor="@color/design_default_color_error" />
 
     <Button
         android:id="@+id/button_home_progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="50px"
-        android:text="Progress" />
+        android:text="Progress"
+        android:textColor="@color/design_default_color_error" />
 
     <Button
         android:id="@+id/button_home_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="50px"
-        android:text="Settings" />
+        android:text="Settings"
+        android:textColor="@color/design_default_color_error" />
 
 
     <Button
 
-        android:id="@+id/button_home_quick_exercise"
+        android:id="@+id/button_exercise_start"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
@@ -39,6 +43,7 @@
         android:background="@drawable/circle_button"
         android:padding="15dp"
         android:text="Quick Exercise"
-        android:textAppearance="?android:textAppearanceLarge" />
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="@color/design_default_color_error" />
 
 </LinearLayout>
