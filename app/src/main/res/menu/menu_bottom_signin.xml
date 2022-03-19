@@ -2,14 +2,16 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/page_1"
+        android:id="@+id/button_bottomNav_login"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_login_24"
         android:title="@string/app_log_in"/>
     <item
-        android:id="@+id/page_2"
+        android:id="@+id/button_bottomNav_logout"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_exit_to_app_24"
         android:title="@string/app_log_out"/>
-    <item android:title="@string/app_sign_up" />
+    <item
+        android:id="@+id/button_bottomNav_signup"
+        android:title="@string/app_sign_up" />
 </menu>

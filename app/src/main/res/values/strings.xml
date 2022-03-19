@@ -5,6 +5,8 @@
 
     <string name="app_title">TITAN</string>
     <string name="app_sign_up">Sign Up</string>
+    <string name="all_shall_kneel_before_us">All shall kneel before us</string>
+    <string name="name">Name</string>
 
     <string-array name="workout_list">
         <item>- Choose exercise -</item>

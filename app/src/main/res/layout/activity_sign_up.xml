@@ -19,7 +19,7 @@
         android:textSize="48sp" />
 
     <EditText
-        android:id="@+id/editText_username"
+        android:id="@+id/editText_signup_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="50px"
@@ -73,6 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="100px"
+        android:onClick="addPerson"
         android:text="Submit"
         android:textColor="@color/design_default_color_error" />
 </LinearLayout>
