@@ -11,4 +11,5 @@
         android:enabled="true"
         android:icon="@drawable/ic_baseline_exit_to_app_24"
         android:title="@string/app_log_out"/>
+    <item android:title="@string/app_sign_up" />
 </menu>

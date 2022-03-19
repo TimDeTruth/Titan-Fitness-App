@@ -4,9 +4,10 @@
     <string name="app_log_out">Log Out</string>
 
     <string name="app_title">TITAN</string>
+    <string name="app_sign_up">Sign Up</string>
 
     <string-array name="workout_list">
-        <item>Choose exercise</item>
+        <item>- Choose exercise -</item>
         <item>Upper Body</item>
         <item>Push Ups</item>
         <item>Dips</item>
