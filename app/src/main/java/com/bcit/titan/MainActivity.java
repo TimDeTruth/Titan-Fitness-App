@@ -52,10 +52,18 @@ public class MainActivity extends AppCompatActivity {
 
 
         View login = findViewById(R.id.button_bottomNav_login);
+
         View signup = findViewById(R.id.button_bottomNav_signup);
 
         Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent2 = new Intent(this, SignUpActivity.class);
 
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(intent2);
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,5 +129,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
 }

@@ -1,5 +1,7 @@
 package com.bcit.titan;
 
+import android.icu.text.CaseMap;
+
 import java.util.ArrayList;
 
 public class Exercise {
@@ -10,7 +12,6 @@ public class Exercise {
     private String[] upperBody = {"push ups" , "pull ups ", "dips"};
     private int[] upperbodyreps = {10 ,0, 3};
 */
-
 
 
     private String username;
