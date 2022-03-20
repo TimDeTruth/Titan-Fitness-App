@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         View login = findViewById(R.id.button_bottomNav_login);
+        View signup = findViewById(R.id.button_bottomNav_signup);
+
         Intent intent = new Intent(this, HomeActivity.class);
 
 

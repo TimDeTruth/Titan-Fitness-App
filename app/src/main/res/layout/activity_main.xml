@@ -11,37 +11,23 @@
         android:id="@+id/editText_main_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="26dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="42dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="@string/name"
         android:textColor="@color/design_default_color_error"
         app:layout_constraintBottom_toTopOf="@+id/editText_main_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/editText_main_password"
         app:layout_constraintTop_toBottomOf="@+id/imageView_main_profile" />
-
-    <EditText
-        android:id="@+id/editText_main_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:text="@string/name"
-        android:textColor="@color/design_default_color_error"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView_main"
-        app:layout_constraintStart_toStartOf="@+id/editText_main_username"
-        app:layout_constraintTop_toBottomOf="@+id/editText_main_username" />
 
     <TextView
         android:id="@+id/textView_main_title"
         android:layout_width="218dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="11dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginBottom="47dp"
         android:fontFamily="@font/font_greek"
         android:gravity="center"
         android:shadowColor="@color/black"
@@ -58,8 +44,10 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView_main"
-        android:layout_width="408dp"
-        android:layout_height="87dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +58,7 @@
         android:id="@+id/textView_main_slogan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="81dp"
+        android:layout_marginBottom="45dp"
         android:fontFamily="@font/font_greek"
         android:shadowColor="@color/design_default_color_on_secondary"
         android:shadowDx="10"
@@ -86,15 +74,29 @@
 
     <ImageView
         android:id="@+id/imageView_main_profile"
-        android:layout_width="250dp"
-        android:layout_height="192dp"
-        android:layout_marginBottom="87dp"
+        android:layout_width="252dp"
+        android:layout_height="220dp"
+        android:layout_marginBottom="49dp"
         app:layout_constraintBottom_toTopOf="@+id/editText_main_username"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_main_slogan"
         app:srcCompat="@drawable/chris"
         tools:src="@drawable/chris" />
+
+    <EditText
+        android:id="@+id/editText_main_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:text="Password"
+        android:textColor="@color/design_default_color_error"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_main_username" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

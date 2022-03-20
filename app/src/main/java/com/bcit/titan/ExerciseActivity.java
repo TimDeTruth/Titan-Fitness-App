@@ -36,7 +36,7 @@ public class ExerciseActivity extends AppCompatActivity {
                         Bundle bundle = new Bundle();
 
 //                        intent.putExtras(bundle);
-                        intent.putExtra("workoutResource", R.drawable.exercises_push_up);
+                        intent.putExtra("workoutResource", R.drawable.excercises_upper_push_ups);
                         intent.putExtra("workoutName", selectedWorkout);
                         intent.putExtra("workoutTime", 30000);
 

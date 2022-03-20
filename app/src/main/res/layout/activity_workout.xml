@@ -19,11 +19,16 @@
         android:textColor="@color/design_default_color_error"
         android:textSize="48sp" />
 
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp" />
+
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gif_workout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/exercises_push_up" />
+        android:layout_height="403dp"
+        android:src="@drawable/excercises_upper_push_ups" />
 
     <Button
 
