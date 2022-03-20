@@ -20,15 +20,15 @@
         android:textSize="48sp" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/spinner_workout_dropdown"
         android:layout_width="match_parent"
-        android:layout_height="55dp" />
+        android:layout_height="wrap_content" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gif_workout"
         android:layout_width="match_parent"
-        android:layout_height="403dp"
-        android:src="@drawable/excercises_upper_push_ups" />
+        android:layout_height="267dp"
+        android:src="@drawable/exercise_upper_push_ups" />
 
     <Button
 

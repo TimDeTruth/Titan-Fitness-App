@@ -8,8 +8,24 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class ExerciseActivity extends AppCompatActivity {
+
+    public final String DIPSID = Integer.toString(R.drawable.exercise_upper_dips);
+    public final String PUSHUPSID = Integer.toString(R.drawable.exercise_upper_push_ups);
+    public final String PULLUPSID = Integer.toString(R.drawable.exercise_upper_pull_ups);
+
+    public final String SQUATID = Integer.toString(R.drawable.exercise_lower_squats);
+    public final String LUNGEID = Integer.toString(R.drawable.exercise_lower_lunge);
+    public final String DEADLIFTID = Integer.toString(R.drawable.exercise_lower_deadlift);
+
+    public final String PLANKID = Integer.toString(R.drawable.exercise_core_plank);
+    public final String ELBOWTOKNEEID = Integer.toString(R.drawable.exercise_core_elbow_to_knee);
+    public final String LEGRAISESID = Integer.toString(R.drawable.exercise_core_leg_raises);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,34 +40,87 @@ public class ExerciseActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, WorkoutActivity.class);
         Spinner spinner = (Spinner) findViewById(R.id.spinner_exercise_list);
-
+        TextView workoutTypeDescription = findViewById(R.id.textView_exercise_description);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 String selectedWorkout = spinner.getSelectedItem().toString();
-
+                Bundle extras = new Bundle();
                 switch (spinner.getSelectedItem().toString()) {
-                    case "Push ups":
-                        Bundle bundle = new Bundle();
 
-//                        intent.putExtras(bundle);
-                        intent.putExtra("workoutResource", R.drawable.excercises_upper_push_ups);
-                        intent.putExtra("workoutName", selectedWorkout);
-                        intent.putExtra("workoutTime", 30000);
 
+                    //upper
+                    case "Push Ups":
+                        String[] pushUpsArr = {"Squats", PUSHUPSID, 60000 + ""};
+                        extras.putStringArray("WORKOUTKEY", pushUpsArr);
+                        intent.putExtras(extras);
                         startActivity(intent);
                         break;
-                    case "Squats":
-                        String squatID = R.drawable.exercises_squats + "";
-                        String[] squatArray = {"Squats", squatID, 60000 + ""};
-                        Bundle extras = new Bundle();
-                        extras.putStringArray("SQUATKEY", squatArray);
+                    case "Dips":
+                        String[] dipsArr = {"Dips", DIPSID, 45000 + ""};
+                        extras.putStringArray("WORKOUTKEY", dipsArr);
                         intent.putExtras(extras);
-//                        intent.putExtra("workoutResource", R.drawable.exercises_squats);
-//                        intent.putExtra("workoutName", selectedWorkout);
-//                        intent.putExtra("workoutTime", 60000);
                         startActivity(intent);
+                        break;
+                    case "Pull Ups":
+                        String[] pullUpsArr = {"Pull Ups", PULLUPSID, 50000 + ""};
+                        extras.putStringArray("WORKOUTKEY", pullUpsArr);
+                        intent.putExtras(extras);
+                        startActivity(intent);
+                        break;
+
+                    //Lower
+                    case "Squats":
+                        String[] squatArray = {"Squats", SQUATID, 60000 + ""};
+                        extras.putStringArray("WORKOUTKEY", squatArray);
+                        intent.putExtras(extras);
+                        startActivity(intent);
+                        break;
+                    case "Lunges":
+                        String[] lungesArr = {"Lunges", LUNGEID, 60000 + ""};
+                        extras.putStringArray("WORKOUTKEY", lungesArr);
+                        intent.putExtras(extras);
+                        startActivity(intent);
+                        break;
+                    case "Deadlift":
+                        String[] deadliftArr = {"Dead", DEADLIFTID, 45000 + ""};
+                        extras.putStringArray("WORKOUTKEY", deadliftArr);
+                        intent.putExtras(extras);
+                        startActivity(intent);
+                        break;
+
+
+                    //Core
+                    case "Plank":
+                        String[] plankArr = {"Plank", PLANKID, 120000 + ""};
+                        extras.putStringArray("WORKOUTKEY", plankArr);
+                        intent.putExtras(extras);
+                        startActivity(intent);
+                        break;
+                    case "Leg Raises":
+                        String[] legRaisesArr = {"Lunges", LEGRAISESID, 50000 + ""};
+                        extras.putStringArray("WORKOUTKEY", legRaisesArr);
+                        intent.putExtras(extras);
+                        startActivity(intent);
+                        break;
+                    case "Elbow to knee":
+                        String[] elbowToKneeArr = {"Bulgarian Split Squat", ELBOWTOKNEEID, 45000 + ""};
+                        extras.putStringArray("WORKOUTKEY", elbowToKneeArr);
+                        intent.putExtras(extras);
+                        startActivity(intent);
+                        break;
+
+
+
+                    case "Upper Body":
+                        workoutTypeDescription.setText(R.string.upper_description);
+                        break;
+                    case "Lower Body":
+                        workoutTypeDescription.setText(R.string.lower_description);
+                        break;
+                    case "Core":
+                        workoutTypeDescription.setText(R.string.core_description);
                         break;
 
                 }

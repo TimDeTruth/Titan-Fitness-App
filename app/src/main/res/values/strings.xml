@@ -18,11 +18,17 @@
         <item>Lower Body</item>
         <item>Squats</item>
         <item>Lunges</item>
-        <item>Bulgarian Split Squats</item>
+        <item>Deadlift</item>
         <item> </item>
         <item>Core</item>
         <item>Plank</item>
         <item>Leg Raises</item>
-        <item>Russian Twists</item>
+        <item>Elbow to knee</item>
     </string-array>
+
+    <string name="core_description">Core is good for everyday tasks.</string>
+    <string name="upper_description">A good upper body can give the illusion that you are bigger
+    than you actually look.</string>
+    <string name="lower_description">Don\'t skip leg day guys, legs are very important because you use it to walk everyday.</string>
+
 </resources>
