@@ -4,6 +4,10 @@ import android.icu.text.CaseMap;
 
 import java.util.ArrayList;
 
+/**
+ * Name: Arno Princeston Pan
+ */
+
 public class Exercise {
 
 /*
