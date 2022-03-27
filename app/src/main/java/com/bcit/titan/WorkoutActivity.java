@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,8 +12,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class WorkoutActivity extends AppCompatActivity {
 
@@ -266,8 +262,8 @@ public class WorkoutActivity extends AppCompatActivity {
     void timers(int startTimer) {
 
 
-        timer = (TextView) findViewById(R.id.textView_exercise_timer);
-        start = (Button) findViewById(R.id.button_exercise_start);
+        timer = (TextView) findViewById(R.id.textView_workout_timer);
+        start = (Button) findViewById(R.id.button_workout_start);
 
         timer.setText(startTimer / 1000 + "");
 

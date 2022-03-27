@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/plainText_workout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cardview_dark_background"
@@ -32,7 +33,7 @@
 
     <Button
 
-        android:id="@+id/button_exercise_start"
+        android:id="@+id/button_workout_start"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
@@ -42,10 +43,11 @@
         android:padding="15dp"
         android:text="Start"
         android:textAppearance="?android:textAppearanceLarge"
-        android:textColor="@color/design_default_color_error" />
+        android:textColor="@color/design_default_color_error"
+        android:textSize="48sp" />
 
     <TextView
-        android:id="@+id/textView_exercise_timer"
+        android:id="@+id/textView_workout_timer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -57,5 +59,24 @@
         android:textColor="#000000"
         android:textSize="50dp"
         android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editText_workout_reps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/button_workout_submit"
+        android:layout_width="179dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/font_greek"
+        android:text="Submit"
+        android:textColor="#E10707"
+        android:textSize="24sp" />
 
 </LinearLayout>
