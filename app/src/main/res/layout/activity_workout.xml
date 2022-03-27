@@ -28,16 +28,16 @@
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gif_workout"
         android:layout_width="match_parent"
-        android:layout_height="267dp"
+        android:layout_height="240dp"
         android:src="@drawable/exercise_upper_push_ups" />
 
     <Button
 
         android:id="@+id/button_workout_start"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         android:layout_gravity="center"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:background="@drawable/circle_button"
         android:fontFamily="@font/font_greek"
         android:padding="15dp"
@@ -52,7 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
+
         android:gravity="center"
         android:paddingBottom="0dp"
         android:text="00:30:00"
