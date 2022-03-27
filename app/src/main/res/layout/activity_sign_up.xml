@@ -25,7 +25,8 @@
         android:layout_marginVertical="50px"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Username"
+        android:hint="User Name"
+        android:textColorHint="@color/white"
         android:textColor="@color/white" />
 
     <EditText
@@ -35,7 +36,8 @@
         android:layout_marginVertical="50px"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Password"
+        android:hint="Password"
+        android:textColorHint="@color/white"
         android:textColor="@color/white" />
 
     <EditText
@@ -45,7 +47,8 @@
         android:layout_marginVertical="50px"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="First Name"
+        android:hint="First Name"
+        android:textColorHint="@color/white"
         android:textColor="@color/white" />
 
     <EditText
@@ -55,7 +58,8 @@
         android:layout_marginVertical="50px"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Last Name"
+        android:hint="Last Name"
+        android:textColorHint="@color/white"
         android:textColor="@color/white" />
 
     <EditText
@@ -65,7 +69,8 @@
         android:layout_marginVertical="50px"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Email"
+        android:hint="Email"
+        android:textColorHint="@color/white"
         android:textColor="@color/white" />
 
     <Button

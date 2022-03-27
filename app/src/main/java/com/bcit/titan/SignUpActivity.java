@@ -34,27 +34,66 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void addPerson(View view){
 
-        EditText userName = findViewById(R.id.editText_signup_username);
+        EditText username = findViewById(R.id.editText_signup_username);
         EditText password = findViewById(R.id.editText_signup_password);
-        EditText firstName = findViewById(R.id.editText_signup_first_name);
-        EditText lastName = findViewById(R.id.editText_signup_last_name);
+        EditText firstname = findViewById(R.id.editText_signup_first_name);
+        EditText lastname = findViewById(R.id.editText_signup_last_name);
         EditText email = findViewById(R.id.editText_signup_email);
-        User user = new User(userName.getText().toString(), password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), email.getText().toString());
+//        User user = new User(userName.getText().toString(), password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), email.getText().toString());
+
+        Map<String, Object> user = new HashMap<>();
+        user.put("username",username.getText().toString());
+        user.put("email",email.getText().toString());
+        user.put("password",password.getText().toString());
+        user.put("firstname",firstname.getText().toString());
+        user.put("lastname",lastname.getText().toString());
+        user.put("Upper", 0 + "");
+        user.put("Lower", 0 + "");
+        user.put("Core", 0 + "");
+        user.put("Log", "Log");
+
+        String user_id = email.getText().toString();
 
         //String id = usersRef.collection("users").document().getId(); //Gets de generated id
-        FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
-        CollectionReference usersRef = rootRef.collection("users");
+
+
+        //              THIS MIGHT NOT BE NEEDED
+//        FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+//        CollectionReference usersRef = rootRef.collection("users");
+//        usersRef.document(id).set(user);
+//        addCollection(id);
+
+        db.collection("users").document(user_id)
+                .set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("Debug", "DocumentSnapshot successfully written.");
+                        Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+                        intent.putExtra("user_email", user_id);
+                        startActivity(intent);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("Debug", "Error writing document", e);
+                    }
+                });
+
+
+
+
         //String id = usersRef.collection("users").document().getId(); //Gets de generated id
 
-        Map<String, Object> exerciseTypes = new HashMap<>();
-        exerciseTypes.put("Upper", 0);
-        exerciseTypes.put("Lower", 0);
-        exerciseTypes.put("Core", 0);
+//        Map<String, Object> exerciseTypes = new HashMap<>();
+//        exerciseTypes.put("Upper", 0);
+//        exerciseTypes.put("Lower", 0);
+//        exerciseTypes.put("Core", 0);
 
-        String id = user.getUsername();
+//        String id = user.getUsername();
 
-        usersRef.document(id).set(user);
-        addCollection(id);
+//
 
 //        db.collection("users")
 //                .add(user) // user
@@ -84,10 +123,10 @@ public class SignUpActivity extends AppCompatActivity {
 
 
 
-        System.out.println("The exercise type: " + exerciseTypes);
-
-
-        System.out.println("This works i got here");
+//        System.out.println("The exercise type: " + exerciseTypes);
+//
+//
+//        System.out.println("This works i got here");
 
 
     }
