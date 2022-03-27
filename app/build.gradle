@@ -40,7 +40,14 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
 
+
+
+
+
+
     implementation 'com.google.firebase:firebase-auth:21.0.1'
     implementation platform('com.google.firebase:firebase-bom:29.2.1')
     implementation 'com.google.android.gms:play-services-auth:20.1.0'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

@@ -21,8 +21,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
         Intent intentExercise = new Intent(this, ExerciseActivity.class);
-//        Intent intentProgress = new Intent(this, .class);
-//        Intent intentSettings = new Intent(this, ExerciseActivity.class);
+        Intent intentProgress = new Intent(this, ProgressActivity.class);
+
 
 
         exerciseButton.setOnClickListener(new View.OnClickListener() {
@@ -30,6 +30,13 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(intentExercise);
 
+            }
+        });
+
+        progressButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(intentProgress);
             }
         });
         
