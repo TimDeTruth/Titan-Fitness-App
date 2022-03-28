@@ -106,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
                                                     && passwordStr.equals(user.get(i).getPassword())){
 
                                                 System.out.println(" i got thre");
+                                                intent.putExtra("user_email", user.get(i).getEmail());
+
                                                 startActivity(intent);
                                             }
                                         }
