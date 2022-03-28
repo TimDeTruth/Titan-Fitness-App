@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -32,7 +33,10 @@ public class WorkoutActivity extends AppCompatActivity {
     public final String ELBOWTOKNEEID = Integer.toString(R.drawable.exercise_core_elbow_to_knee);
     public final String LEGRAISESID = Integer.toString(R.drawable.exercise_core_leg_raises);
 
-
+    public String category = null;
+    int upperReps = 0;
+    int coreReps = 0;
+    int lowerReps = 0;
 
 
     @Override
@@ -44,6 +48,29 @@ public class WorkoutActivity extends AppCompatActivity {
 
         setupSpinner();
         refresh();
+
+        Intent intent = new Intent(this, ProgressActivity.class);
+        Bundle extras = new Bundle();
+        Button button = findViewById(R.id.button_workout_submit);
+        EditText enteredReps = findViewById(R.id.editText_workout_reps);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int reps = (Integer.parseInt(enteredReps.getText().toString()));
+
+                if(enteredReps != null){
+                    if(category.equals("upper")){
+                        upperReps += Integer.parseInt(enteredReps.getText().toString());
+                    }else if(category.equals("core")){
+                        coreReps += (Integer.parseInt(enteredReps.getText().toString()));
+                    }else if(category.equals("lower")){
+                        lowerReps += (Integer.parseInt(enteredReps.getText().toString()));
+                    }else{
+                        System.out.println("Doesn't Exist");
+                    }
+                }
+            }
+        });
 /*        Intent intent = getIntent();
         Bundle workoutExtras = intent.getExtras();
 
@@ -150,7 +177,6 @@ public class WorkoutActivity extends AppCompatActivity {
 
     }
 
-
     void refresh() {
         setupSpinner();
         Spinner spinner = (Spinner) findViewById(R.id.spinner_workout_dropdown);
@@ -175,6 +201,7 @@ public class WorkoutActivity extends AppCompatActivity {
         int startTimer = Integer.parseInt(selectedWorkoutKey[2]);
         timers(startTimer);
 
+        category = selectedWorkoutKey[3];
 
         Intent intents = new Intent(this, this.getClass());
         Spinner spinners = (Spinner) findViewById(R.id.spinner_workout_dropdown);
@@ -187,19 +214,19 @@ public class WorkoutActivity extends AppCompatActivity {
                 switch (spinners.getSelectedItem().toString()) {
                     //upper
                     case "Push Ups":
-                        String[] pushUpsArr = {"Push Ups", PUSHUPSID, 60000 + ""};
+                        String[] pushUpsArr = {"Push Ups", PUSHUPSID, 60000 + "", "upper"};
                         extras.putStringArray("WORKOUTKEY", pushUpsArr);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Dips":
-                        String[] dipsArr = {"Dips", DIPSID, 45000 + ""};
+                        String[] dipsArr = {"Dips", DIPSID, 45000 + "", "upper"};
                         extras.putStringArray("WORKOUTKEY", dipsArr);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Pull Ups":
-                        String[] pullUpsArr = {"Pull Ups", PULLUPSID, 50000 + ""};
+                        String[] pullUpsArr = {"Pull Ups", PULLUPSID, 50000 + "", "upper"};
                         extras.putStringArray("WORKOUTKEY", pullUpsArr);
                         intent.putExtras(extras);
                         startActivity(intent);
@@ -207,19 +234,19 @@ public class WorkoutActivity extends AppCompatActivity {
 
                     //Lower
                     case "Squats":
-                        String[] squatArray = {"Squats", SQUATID, 60000 + ""};
+                        String[] squatArray = {"Squats", SQUATID, 60000 + "", "lower"};
                         extras.putStringArray("WORKOUTKEY", squatArray);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Lunges":
-                        String[] lungesArr = {"Lunges", LUNGEID, 60000 + ""};
+                        String[] lungesArr = {"Lunges", LUNGEID, 60000 + "", "lower"};
                         extras.putStringArray("WORKOUTKEY", lungesArr);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Deadlift":
-                        String[] deadliftArr = {"Dead", DEADLIFTID, 45000 + ""};
+                        String[] deadliftArr = {"Dead", DEADLIFTID, 45000 + "", "lower"};
                         extras.putStringArray("WORKOUTKEY", deadliftArr);
                         intent.putExtras(extras);
                         startActivity(intent);
@@ -228,19 +255,19 @@ public class WorkoutActivity extends AppCompatActivity {
 
                     //Core
                     case "Plank":
-                        String[] plankArr = {"Plank", PLANKID, 120000 + ""};
+                        String[] plankArr = {"Plank", PLANKID, 120000 + "", "core"};
                         extras.putStringArray("WORKOUTKEY", plankArr);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Leg Raises":
-                        String[] legRaisesArr = {"Lunges", LEGRAISESID, 50000 + ""};
+                        String[] legRaisesArr = {"Lunges", LEGRAISESID, 50000 + "", "core"};
                         extras.putStringArray("WORKOUTKEY", legRaisesArr);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Elbow to knee":
-                        String[] elbowToKneeArr = {"Bulgarian Split Squat", ELBOWTOKNEEID, 45000 + ""};
+                        String[] elbowToKneeArr = {"Bulgarian Split Squat", ELBOWTOKNEEID, 45000 + "", "core"};
                         extras.putStringArray("WORKOUTKEY", elbowToKneeArr);
                         intent.putExtras(extras);
                         startActivity(intent);
@@ -302,6 +329,7 @@ public class WorkoutActivity extends AppCompatActivity {
         spinner.setAdapter(arrAdapter);
 
     }
+
 
 
 }

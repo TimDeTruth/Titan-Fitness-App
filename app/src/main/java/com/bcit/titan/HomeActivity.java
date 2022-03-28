@@ -14,7 +14,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
         Button exerciseButton = findViewById(R.id.button_home_exercise);
         Button progressButton = findViewById(R.id.button_home_progress);
         Button settingsButton = findViewById(R.id.button_home_settings);
@@ -26,11 +25,11 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
+
         exerciseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(intentExercise);
-
             }
         });
 
