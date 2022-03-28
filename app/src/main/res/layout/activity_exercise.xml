@@ -19,6 +19,7 @@
       android:id="@+id/textView_exercise_description"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:textColor="@color/design_default_color_error"
+      android:paddingTop="10sp"
+      android:textColor="@color/design_default_color_background"
       android:textSize="20sp" />
 </LinearLayout>

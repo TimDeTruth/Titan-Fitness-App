@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class WorkoutActivity extends AppCompatActivity {
@@ -43,6 +44,10 @@ public class WorkoutActivity extends AppCompatActivity {
     int coreReps = 0;
     int lowerReps = 0;
 
+    String up = "";
+    String co = "";
+    String lo = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,22 @@ public class WorkoutActivity extends AppCompatActivity {
         String user_email = selectedWorkout[4];
         TextView toUpdate = findViewById(R.id.textView_workout_invisibileCategory);
         DocumentReference docref = db.collection("users").document(user_email);
+        docref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                up = documentSnapshot.getString("Upper");
+                co = documentSnapshot.getString("Core");
+                lo = documentSnapshot.getString("Lower");
+            }
+        });
+//        docref.addSnapshotListener(this, (documentSnapShot, error) -> {
+//            up.concat(documentSnapShot.getString("Upper").toString());
+//            co = documentSnapShot.getString("Core");
+//            lo = documentSnapShot.getString("Lower");
+//        });
+
+        System.out.println("Workout Activity upper is " + up.toString() + " core is " + co.toString() + " lower is " + lo);
+
 
         if(selectedWorkout[3].equals("upper")){
             docref.addSnapshotListener(this, (documentSnapShot, error) -> {
@@ -72,6 +93,8 @@ public class WorkoutActivity extends AppCompatActivity {
         }else{
             System.out.println("Not possible.");
         }
+
+
 
 
         setupSpinner();

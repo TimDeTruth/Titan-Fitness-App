@@ -27,6 +27,8 @@ public class ExerciseActivity extends AppCompatActivity {
     public final String LEGRAISESID = Integer.toString(R.drawable.exercise_core_leg_raises);
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
                     //upper
                     case "Push Ups":
-                        String[] pushUpsArr = {"Squats", PUSHUPSID, 60000 + "", "upper", user_email};
+                        String[] pushUpsArr = {"Squats", PUSHUPSID, 30000 + "", "upper", user_email};
                         extras.putStringArray("WORKOUTKEY", pushUpsArr);
                         intent.putExtras(extras);
                         startActivity(intent);

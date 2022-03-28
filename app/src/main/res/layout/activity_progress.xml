@@ -40,19 +40,22 @@
             android:id="@+id/textView_progress_upper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/cardview_dark_background" />
 
         <TextView
             android:id="@+id/textView_progress_lower"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/cardview_dark_background" />
 
         <TextView
             android:id="@+id/textView_progress_core"
             android:layout_width="78dp"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@color/cardview_dark_background" />
 
     </LinearLayout>
 

@@ -78,6 +78,12 @@ public class ProgressActivity extends AppCompatActivity {
             lower.setText(documentSnapShot.getString("Lower"));
         });
 
+        System.out.println("Upper is " + upper.getText().toString() + "\n" +
+                "core is " + core.getText().toString() + " \n" +
+                "lower is " + lower.getText().toString());
+
+        System.out.println(repsArray[1]);
+
 //        String u = upper.getText().toString();
 //        String c = upper.getText().toString();
 //        String l = upper.getText().toString();

@@ -50,7 +50,7 @@ public class SignUpActivity extends AppCompatActivity {
         user.put("Upper", 0 + "");
         user.put("Lower", 0 + "");
         user.put("Core", 0 + "");
-        user.put("Log", "Log");
+        user.put("Log",  "Log: ");
 
         String user_id = email.getText().toString();
 
