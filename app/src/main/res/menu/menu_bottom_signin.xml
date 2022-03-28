@@ -13,5 +13,6 @@
         android:title="@string/app_log_out"/>
     <item
         android:id="@+id/button_bottomNav_signup"
+        android:icon="@drawable/ic_baseline_arrow_upward_24"
         android:title="@string/app_sign_up" />
 </menu>

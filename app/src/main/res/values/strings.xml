@@ -38,5 +38,12 @@
     than you actually look.</string>
     <string name="lower_description">Don\'t skip leg day guys, legs are very important because you use it to walk everyday.</string>
     <string name="progress">Progress</string>
+    <string name="submit">Submit</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="user_name">User Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="sign_up">Sign up</string>
 
 </resources>

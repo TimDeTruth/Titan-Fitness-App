@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
 
+
         View login = findViewById(R.id.button_bottomNav_login);
 
         View signup = findViewById(R.id.button_bottomNav_signup);
