@@ -22,6 +22,7 @@ public class HomeActivity extends AppCompatActivity {
 
         Intent intentExercise = new Intent(this, ExerciseActivity.class);
         Intent intentProgress = new Intent(this, ProgressActivity.class);
+        Intent intentSettings = new Intent(this, SettingsActivity.class);
 
 
 
@@ -39,6 +40,13 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intentProgress);
             }
         });
-        
+
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(intentSettings);
+            }
+        });
     }
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background"
+    android:orientation="vertical"
+    tools:context=".SettingsActivity">
+
+    <EditText
+        android:id="@+id/editText_settings_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginVertical="30dp"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Username" />
+
+    <EditText
+        android:id="@+id/editText_settings_confrim_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginVertical="30dp"
+        android:layout_marginBottom="52dp"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/editText_settings_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginVertical="30dp"
+        android:layout_marginBottom="60dp"
+        android:ems="10"
+        android:hint="New Password"
+        android:inputType="textPassword" />
+
+    <Spinner
+        android:id="@+id/spinner_settings_difficulty_change"
+        android:layout_width="347dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp" />
+
+    <Button
+        android:id="@+id/button_settings_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="@font/font_greek"
+        android:text="Submit"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="48sp" />
+
+</LinearLayout>

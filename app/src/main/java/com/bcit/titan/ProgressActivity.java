@@ -37,6 +37,7 @@ public class ProgressActivity extends AppCompatActivity {
         pieChart.setEntryLabelColor(Color.BLACK);
         pieChart.setCenterText("Volume");
         pieChart.setCenterTextSize(24);
+        pieChart.setHoleColor(Color.WHITE);
 
 
 //        Description descChartDescription = new Description();
@@ -74,7 +75,7 @@ public class ProgressActivity extends AppCompatActivity {
         }
 
         PieDataSet dataSet = new PieDataSet(entries, "Workout Volume Category");
-//        dataSet.setYValuePosition();
+
         dataSet.setColors(colors);
 
         PieData data = new PieData(dataSet);
