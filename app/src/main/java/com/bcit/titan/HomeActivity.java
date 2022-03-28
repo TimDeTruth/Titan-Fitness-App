@@ -23,12 +23,14 @@ public class HomeActivity extends AppCompatActivity {
         Intent intentProgress = new Intent(this, ProgressActivity.class);
         Intent intentSettings = new Intent(this, SettingsActivity.class);
 
+        String user_email = getIntent().getExtras().getString("user_email");
 
 
 
         exerciseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                intentExercise.putExtra("user_email", user_email);
                 startActivity(intentExercise);
             }
         });

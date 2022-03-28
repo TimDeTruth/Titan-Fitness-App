@@ -32,6 +32,8 @@ public class ExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
 
+        String user_email = getIntent().getExtras().getString("user_email");
+
 
 //        ExerciseDetails exercise1 = new ExerciseDetails("Push ups", R.drawable.exercises_push_up, 0);
 //        ExerciseDetails exercise2 = new ExerciseDetails("Squats", R.drawable.exercises_squats, 1);
@@ -52,19 +54,19 @@ public class ExerciseActivity extends AppCompatActivity {
 
                     //upper
                     case "Push Ups":
-                        String[] pushUpsArr = {"Squats", PUSHUPSID, 60000 + "", "upper"};
+                        String[] pushUpsArr = {"Squats", PUSHUPSID, 60000 + "", "upper", user_email};
                         extras.putStringArray("WORKOUTKEY", pushUpsArr);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Dips":
-                        String[] dipsArr = {"Dips", DIPSID, 45000 + "", "upper"};
+                        String[] dipsArr = {"Dips", DIPSID, 45000 + "", "upper", user_email};
                         extras.putStringArray("WORKOUTKEY", dipsArr);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Pull Ups":
-                        String[] pullUpsArr = {"Pull Ups", PULLUPSID, 50000 + "", "upper"};
+                        String[] pullUpsArr = {"Pull Ups", PULLUPSID, 50000 + "", "upper", user_email};
                         extras.putStringArray("WORKOUTKEY", pullUpsArr);
                         intent.putExtras(extras);
                         startActivity(intent);
@@ -72,19 +74,19 @@ public class ExerciseActivity extends AppCompatActivity {
 
                     //Lower
                     case "Squats":
-                        String[] squatArray = {"Squats", SQUATID, 60000 + "", "lower"};
+                        String[] squatArray = {"Squats", SQUATID, 60000 + "", "lower", user_email};
                         extras.putStringArray("WORKOUTKEY", squatArray);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Lunges":
-                        String[] lungesArr = {"Lunges", LUNGEID, 60000 + "", "lower"};
+                        String[] lungesArr = {"Lunges", LUNGEID, 60000 + "", "lower", user_email};
                         extras.putStringArray("WORKOUTKEY", lungesArr);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Deadlift":
-                        String[] deadliftArr = {"Dead", DEADLIFTID, 45000 + "", "lower"};
+                        String[] deadliftArr = {"Dead", DEADLIFTID, 45000 + "", "lower", user_email};
                         extras.putStringArray("WORKOUTKEY", deadliftArr);
                         intent.putExtras(extras);
                         startActivity(intent);
@@ -93,19 +95,19 @@ public class ExerciseActivity extends AppCompatActivity {
 
                     //Core
                     case "Plank":
-                        String[] plankArr = {"Plank", PLANKID, 120000 + "", "core"};
+                        String[] plankArr = {"Plank", PLANKID, 120000 + "", "core", user_email};
                         extras.putStringArray("WORKOUTKEY", plankArr);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Leg Raises":
-                        String[] legRaisesArr = {"Lunges", LEGRAISESID, 50000 + "", "core"};
+                        String[] legRaisesArr = {"Lunges", LEGRAISESID, 50000 + "", "core", user_email};
                         extras.putStringArray("WORKOUTKEY", legRaisesArr);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Elbow to knee":
-                        String[] elbowToKneeArr = {"Bulgarian Split Squat", ELBOWTOKNEEID, 45000 + "", "core"};
+                        String[] elbowToKneeArr = {"Bulgarian Split Squat", ELBOWTOKNEEID, 45000 + "", "core", user_email};
                         extras.putStringArray("WORKOUTKEY", elbowToKneeArr);
                         intent.putExtras(extras);
                         startActivity(intent);

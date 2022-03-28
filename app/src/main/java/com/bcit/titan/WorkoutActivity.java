@@ -14,11 +14,16 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class WorkoutActivity extends AppCompatActivity {
 
     TextView timer;
     Button start, pause, reset;
     int countDown = 0;
+    FirebaseFirestore db;
 
 
     public final String DIPSID = Integer.toString(R.drawable.exercise_upper_dips);
@@ -44,7 +49,30 @@ public class WorkoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
 
-//        boolean hasStarted = false;
+        db = FirebaseFirestore.getInstance();
+        Bundle inBundle = getIntent().getExtras();
+        String[] selectedWorkout = inBundle.getStringArray("WORKOUTKEY");
+
+        String user_email = selectedWorkout[4];
+        TextView toUpdate = findViewById(R.id.textView_workout_invisibileCategory);
+        DocumentReference docref = db.collection("users").document(user_email);
+
+        if(selectedWorkout[3].equals("upper")){
+            docref.addSnapshotListener(this, (documentSnapShot, error) -> {
+                toUpdate.setText(documentSnapShot.getString("Upper"));
+            });
+        }else if(selectedWorkout[3].equals("core")){
+            docref.addSnapshotListener(this, (documentSnapShot, error) -> {
+                toUpdate.setText(documentSnapShot.getString("Core"));
+            });
+        }else if(selectedWorkout[3].equals("lower")){
+            docref.addSnapshotListener(this, (documentSnapShot, error) -> {
+                toUpdate.setText(documentSnapShot.getString("Lower"));
+            });
+        }else{
+            System.out.println("Not possible.");
+        }
+
 
         setupSpinner();
         refresh();
@@ -60,135 +88,76 @@ public class WorkoutActivity extends AppCompatActivity {
             }
         });
 
-/*        Intent intent = getIntent();
-        Bundle workoutExtras = intent.getExtras();
-
-
-        int selectedExerciseId = workoutExtras.getInt("workoutResource");
-        System.out.println("The resource ID: " + workoutExtras.getInt("workoutResource"));
-
-        String selectedExerciseName = workoutExtras.getString("workoutName");
-
-        TextView textView = findViewById(R.id.textView_workout_title);
-        textView.setText(selectedExerciseName);
-
-        ImageView imageView = findViewById(R.id.gif_workout);
-        imageView.setImageResource(selectedExerciseId);
-
-
-        String selectedExerciseTime = workoutExtras.getString("workoutTime");
-
-        Bundle inBundle = getIntent().getExtras();
-
-        String[] selectedWorkoutKey = inBundle.getStringArray("WORKOUTKEY");
-
-        textView.setText(selectedWorkoutKey[0]);
-        imageView.setImageResource(Integer.parseInt(selectedWorkoutKey[1]));
-//        inBundle.containsKey("SQUATKEY");
-
-        timer = (TextView) findViewById(R.id.textView_exercise_timer);
-        start = (Button) findViewById(R.id.button_exercise_start);
-
-        timer.setText(Integer.parseInt(selectedWorkoutKey[2]) / 1000 + "");
-
-        start.setOnClickListener(new View.OnClickListener() {
-            int one = 0;
-
-            @Override
-            public void onClick(View view) {
-                one++;
-                CountDownTimer count = new CountDownTimer(Integer.parseInt(selectedWorkoutKey[2]), 1000) {
-
-
-                    public void onTick(long millisUntilFinished) {
-                        timer.setText("" + millisUntilFinished / 1000);
-                    }
-
-                    public void onFinish() {
-                        timer.setText("done!");
-                    }
-                };
-                if (one == 1) {
-                    count.start();
-                }
-
-            }
-        });*/
-
-/*        Spinner spinner = (Spinner) findViewById(R.id.spinner_exercise_list);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                String selectedWorkout = spinner.getSelectedItem().toString();
-
-                switch (spinner.getSelectedItem().toString()) {
-                    case "Push ups":
-                        imageView.setImageResource(R.drawable.excercises_upper_push_ups);
-                        textView.setText(selectedWorkout);
-                        countDown = 60;
-                        break;
-                    case "Squats":
-
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        start.setOnClickListener(new View.OnClickListener() {
-            int one = 0;
-
-            @Override
-            public void onClick(View view) {
-                one++;
-                CountDownTimer count = new CountDownTimer(countDown, 1000) {
-
-                    public void onTick(long millisUntilFinished) {
-                        timer.setText("" + millisUntilFinished / 1000);
-                    }
-
-                    public void onFinish() {
-                        timer.setText("done!");
-                    }
-                };
-                if (one == 1){
-                    count.start();
-                }
-
-            }
-        });*/
 
     }
 
     public void submitReps(){
+        db = FirebaseFirestore.getInstance();
+
         Intent intent = new Intent(this, ProgressActivity.class);
-        Bundle extras = new Bundle();
         EditText enteredReps = findViewById(R.id.editText_workout_reps);
+        TextView categoryUpdate = findViewById(R.id.textView_workout_invisibileCategory);
+
+        Bundle inBundle = getIntent().getExtras();
+        String[] selectedWorkoutKey = inBundle.getStringArray("WORKOUTKEY");
+
+        String user_email = selectedWorkoutKey[4];
+
+        DocumentReference docref = db.collection("users").document(user_email);
 
         if(enteredReps != null){
             if(category.equals("upper")){
                 upperReps += Integer.parseInt(enteredReps.getText().toString());
+                docref.addSnapshotListener(this, (documentSnapShot, error) -> {
+                   categoryUpdate.setText(documentSnapShot.getString("Upper"));
+                });
+                int upper = Integer.parseInt(categoryUpdate.getText().toString() + upperReps);
+                docref.update("Upper", upper + "").addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        System.out.println("Updated: " + upper);
+                        upperReps = 0;
+                    }
+                });
+
             }else if(category.equals("core")){
-                coreReps += (Integer.parseInt(enteredReps.getText().toString()));
+                coreReps += Integer.parseInt(enteredReps.getText().toString());
+                docref.addSnapshotListener(this, (documentSnapShot, error) -> {
+                    categoryUpdate.setText(documentSnapShot.getString("Core"));
+                });
+                int core = Integer.parseInt(categoryUpdate.getText().toString() + coreReps);
+                docref.update("Core", core + "").addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        System.out.println("Updated: " + core);
+                        coreReps = 0;
+                    }
+                });
+
             }else if(category.equals("lower")){
-                lowerReps += (Integer.parseInt(enteredReps.getText().toString()));
+                lowerReps += Integer.parseInt(enteredReps.getText().toString());
+                docref.addSnapshotListener(this, (documentSnapShot, error) -> {
+                    categoryUpdate.setText(documentSnapShot.getString("Lower"));
+                });
+                int lower = Integer.parseInt(categoryUpdate.getText().toString() + lowerReps);
+                docref.update("Lower", lower + "").addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        System.out.println("Updated: " + lower);
+                        lowerReps = 0;
+                    }
+                });
             }else{
                 System.out.println("Doesn't Exist");
             }
         }
 
         Bundle pieExtras = new Bundle();
-        String[] pieData = {category, enteredReps.getText().toString()};
+        String[] pieData = {category, enteredReps.getText().toString(), user_email};
         pieExtras.putStringArray("PIEKEY", pieData);
-        intent.putExtras(extras);
+        intent.putExtras(pieExtras);
 
-        System.out.println(pieData[0] + " " + pieData[1]);
+        System.out.println(pieData[0] + " " + pieData[1] + " " + pieData[2]);
 
         startActivity(intent);
 
@@ -211,8 +180,13 @@ public class WorkoutActivity extends AppCompatActivity {
         textView.setText(selectedExerciseName);
         imageView.setImageResource(selectedExerciseId);
         String selectedExerciseTime = workoutExtras.getString("workoutTime");
+
         Bundle inBundle = getIntent().getExtras();
         String[] selectedWorkoutKey = inBundle.getStringArray("WORKOUTKEY");
+
+
+        String user_email = selectedWorkoutKey[4];
+
         textView.setText(selectedWorkoutKey[0]);
         imageView.setImageResource(Integer.parseInt(selectedWorkoutKey[1]));
         int startTimer = Integer.parseInt(selectedWorkoutKey[2]);
@@ -231,19 +205,19 @@ public class WorkoutActivity extends AppCompatActivity {
                 switch (spinners.getSelectedItem().toString()) {
                     //upper
                     case "Push Ups":
-                        String[] pushUpsArr = {"Push Ups", PUSHUPSID, 60000 + "", "upper"};
+                        String[] pushUpsArr = {"Push Ups", PUSHUPSID, 60000 + "", "upper", user_email};
                         extras.putStringArray("WORKOUTKEY", pushUpsArr);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Dips":
-                        String[] dipsArr = {"Dips", DIPSID, 45000 + "", "upper"};
+                        String[] dipsArr = {"Dips", DIPSID, 45000 + "", "upper", user_email};
                         extras.putStringArray("WORKOUTKEY", dipsArr);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Pull Ups":
-                        String[] pullUpsArr = {"Pull Ups", PULLUPSID, 50000 + "", "upper"};
+                        String[] pullUpsArr = {"Pull Ups", PULLUPSID, 50000 + "", "upper", user_email};
                         extras.putStringArray("WORKOUTKEY", pullUpsArr);
                         intent.putExtras(extras);
                         startActivity(intent);
@@ -251,19 +225,19 @@ public class WorkoutActivity extends AppCompatActivity {
 
                     //Lower
                     case "Squats":
-                        String[] squatArray = {"Squats", SQUATID, 60000 + "", "lower"};
+                        String[] squatArray = {"Squats", SQUATID, 60000 + "", "lower", user_email};
                         extras.putStringArray("WORKOUTKEY", squatArray);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Lunges":
-                        String[] lungesArr = {"Lunges", LUNGEID, 60000 + "", "lower"};
+                        String[] lungesArr = {"Lunges", LUNGEID, 60000 + "", "lower", user_email};
                         extras.putStringArray("WORKOUTKEY", lungesArr);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Deadlift":
-                        String[] deadliftArr = {"Dead", DEADLIFTID, 45000 + "", "lower"};
+                        String[] deadliftArr = {"Dead", DEADLIFTID, 45000 + "", "lower", user_email};
                         extras.putStringArray("WORKOUTKEY", deadliftArr);
                         intent.putExtras(extras);
                         startActivity(intent);
@@ -272,19 +246,19 @@ public class WorkoutActivity extends AppCompatActivity {
 
                     //Core
                     case "Plank":
-                        String[] plankArr = {"Plank", PLANKID, 120000 + "", "core"};
+                        String[] plankArr = {"Plank", PLANKID, 120000 + "", "core", user_email};
                         extras.putStringArray("WORKOUTKEY", plankArr);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Leg Raises":
-                        String[] legRaisesArr = {"Lunges", LEGRAISESID, 50000 + "", "core"};
+                        String[] legRaisesArr = {"Lunges", LEGRAISESID, 50000 + "", "core", user_email};
                         extras.putStringArray("WORKOUTKEY", legRaisesArr);
                         intent.putExtras(extras);
                         startActivity(intent);
                         break;
                     case "Elbow to knee":
-                        String[] elbowToKneeArr = {"Bulgarian Split Squat", ELBOWTOKNEEID, 45000 + "", "core"};
+                        String[] elbowToKneeArr = {"Bulgarian Split Squat", ELBOWTOKNEEID, 45000 + "", "core", user_email};
                         extras.putStringArray("WORKOUTKEY", elbowToKneeArr);
                         intent.putExtras(extras);
                         startActivity(intent);

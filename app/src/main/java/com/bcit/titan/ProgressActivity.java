@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -14,11 +15,14 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class ProgressActivity extends AppCompatActivity {
     private PieChart pieChart;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +62,53 @@ public class ProgressActivity extends AppCompatActivity {
     }
 
     private void loadPieChartData() {
+        Bundle pieBundle = getIntent().getExtras();
+        String[] repsArray = pieBundle.getStringArray("PIEKEY");
+
+        String user_email = repsArray[2];
+        db = FirebaseFirestore.getInstance();
+        TextView upper = findViewById(R.id.textView_progress_upper);
+        TextView core = findViewById(R.id.textView_progress_core);
+        TextView lower = findViewById(R.id.textView_progress_lower);
+
+        DocumentReference docref = db.collection("users").document(user_email);
+        docref.addSnapshotListener(this, (documentSnapShot, error) -> {
+            upper.setText(documentSnapShot.getString("Upper"));
+            core.setText(documentSnapShot.getString("Core"));
+            lower.setText(documentSnapShot.getString("Lower"));
+        });
+
+//        String u = upper.getText().toString();
+//        String c = upper.getText().toString();
+//        String l = upper.getText().toString();
+//
+//        System.out.println(u);
+//        System.out.println(c);
+//        System.out.println(l);
+
+//        float upperNum = (float)Integer.parseInt(u);
+//        float coreNum = (float)Integer.parseInt(c);
+//        float lowerNum = (float)Integer.parseInt(l);
+//        Integer upperNumInt = new Integer(upperNum);
+//        float upperNumFloat = upperNumInt.floatValue();
+//
+//        int lowerNum = Integer.parseInt(upper.getText().toString());
+//        Integer lowerNumInt = new Integer(lowerNum);
+//        float lowerNumFloat = lowerNumInt.floatValue();
+//
+//        int coreNum = Integer.parseInt(upper.getText().toString());
+//        Integer coreNumInt = new Integer(coreNum);
+//        float coreNumFloat = coreNumInt.floatValue();
+
+//
+//        System.out.println("Upper: " + upper.getText().toString());
+//        System.out.println("Upper: " + core.getText().toString());
+//        System.out.println(lower.getText().toString());
+
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(0.2f, "Upper Body"));
+        entries.add(new PieEntry(0.8f, "Upper Body"));
         entries.add(new PieEntry(0.15f, "Lower Body"));
-        entries.add(new PieEntry(0.10f, "Legs"));
+        entries.add(new PieEntry(0.1f, "Legs"));
         ;
 
         ArrayList<Integer> colors = new ArrayList<>();
