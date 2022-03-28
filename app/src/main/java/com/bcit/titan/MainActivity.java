@@ -93,17 +93,19 @@ public class MainActivity extends AppCompatActivity {
                                                 new User(
                                                         document.getData().get("username").toString(),
                                                         document.getData().get("password").toString(),
-                                                        document.getData().get("firstName").toString(),
-                                                        document.getData().get("lastName").toString(),
+                                                        document.getData().get("firstname").toString(),
+                                                        document.getData().get("lastname").toString(),
                                                         document.getData().get("email").toString()
                                                 )
                                         );
                                         System.out.println("List: " + user);
                                         for (int i = 0; i < user.size(); i++) {
                                             System.out.println("Firebase User: " + user.get(i).getUsername());
-                                            System.out.println("Firebase User: " + user.get(i).getPassword());
+                                            System.out.println("Firebase User password: " + user.get(i).getPassword());
                                             if(userNameStr.equals(user.get(i).getUsername())
                                                     && passwordStr.equals(user.get(i).getPassword())){
+
+                                                System.out.println(" i got thre");
                                                 startActivity(intent);
                                             }
                                         }
