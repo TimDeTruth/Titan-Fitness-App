@@ -56,21 +56,10 @@ public class WorkoutActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int reps = (Integer.parseInt(enteredReps.getText().toString()));
-
-                if(enteredReps != null){
-                    if(category.equals("upper")){
-                        upperReps += Integer.parseInt(enteredReps.getText().toString());
-                    }else if(category.equals("core")){
-                        coreReps += (Integer.parseInt(enteredReps.getText().toString()));
-                    }else if(category.equals("lower")){
-                        lowerReps += (Integer.parseInt(enteredReps.getText().toString()));
-                    }else{
-                        System.out.println("Doesn't Exist");
-                    }
-                }
+                submitReps();
             }
         });
+
 /*        Intent intent = getIntent();
         Bundle workoutExtras = intent.getExtras();
 
@@ -174,6 +163,34 @@ public class WorkoutActivity extends AppCompatActivity {
 
             }
         });*/
+
+    }
+
+    public void submitReps(){
+        Intent intent = new Intent(this, ProgressActivity.class);
+        Bundle extras = new Bundle();
+        EditText enteredReps = findViewById(R.id.editText_workout_reps);
+
+        if(enteredReps != null){
+            if(category.equals("upper")){
+                upperReps += Integer.parseInt(enteredReps.getText().toString());
+            }else if(category.equals("core")){
+                coreReps += (Integer.parseInt(enteredReps.getText().toString()));
+            }else if(category.equals("lower")){
+                lowerReps += (Integer.parseInt(enteredReps.getText().toString()));
+            }else{
+                System.out.println("Doesn't Exist");
+            }
+        }
+
+        Bundle pieExtras = new Bundle();
+        String[] pieData = {category, enteredReps.getText().toString()};
+        pieExtras.putStringArray("PIEKEY", pieData);
+        intent.putExtras(extras);
+
+        System.out.println(pieData[0] + " " + pieData[1]);
+
+        startActivity(intent);
 
     }
 

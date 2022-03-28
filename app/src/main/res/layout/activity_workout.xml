@@ -34,6 +34,7 @@
     <Button
 
         android:id="@+id/button_workout_start"
+
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_gravity="center"
@@ -44,7 +45,9 @@
         android:text="Start"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@color/design_default_color_error"
-        android:textSize="48sp" />
+        android:textSize="48sp"
+
+        />
 
     <TextView
         android:id="@+id/textView_workout_timer"
