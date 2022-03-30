@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,6 +24,8 @@ import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,6 +42,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,91 +54,67 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
 
+        // up means its going to look like back button?
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-        View login = findViewById(R.id.button_bottomNav_login);
-
-        View signup = findViewById(R.id.button_bottomNav_signup);
-
-        Intent intent = new Intent(this, HomeActivity.class);
-        Intent intent2 = new Intent(this, SignUpActivity.class);
-
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(intent2);
-            }
-        });
-
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EditText userName = findViewById(R.id.editText_main_username);
-                EditText password = findViewById(R.id.editText_main_password);
-
-                String userNameStr = userName.getText().toString();
-                String passwordStr = password.getText().toString();
-
-                System.out.println("The username: " + userName.getText().toString());
-                System.out.println("The password: " + password.getText().toString());
-
-                List<User> user = new ArrayList<User>();
-
-                db.collection("users")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        Log.d("Debug", document.getData().toString());
-
-                                        user.add(
-                                                new User(
-                                                        document.getData().get("username").toString(),
-                                                        document.getData().get("password").toString(),
-                                                        document.getData().get("firstname").toString(),
-                                                        document.getData().get("lastname").toString(),
-                                                        document.getData().get("email").toString()
-                                                )
-                                        );
-                                        System.out.println("List: " + user);
-                                        for (int i = 0; i < user.size(); i++) {
-                                            System.out.println("Firebase User: " + user.get(i).getUsername());
-                                            System.out.println("Firebase User password: " + user.get(i).getPassword());
-                                            if(userNameStr.equals(user.get(i).getUsername())
-                                                    && passwordStr.equals(user.get(i).getPassword())){
-
-                                                System.out.println(" i got thre");
-                                                intent.putExtra("user_email", user.get(i).getEmail());
-
-                                                startActivity(intent);
-                                            }
-                                        }
-
-                                    }
-                                } else {
-                                    Log.w("Debug", "Error getting documents", task.getException());
-                                }
-
-                                User[] usersArray = user.toArray(new User[user.size()]);
-                            }
-                        });
-
-//                mAuth.signInWithEmailAndPassword(userNameStr, passwordStr).addOnCompleteListener(task -> {
-//                    if (task.isSuccessful()) {
-//                        startActivity(new Intent(MainActivity.this, HomeActivity.class));
-//                    }
-//
-//                });
-
-            }
-
-        });
+        initializeBottomNavigation();
 
 
     }
 
+    private void initializeBottomNavigation() {
+        // reference to bottom navigation view
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView_main);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            // when an item is selected, there will be animation
+            if (item.getItemId() == R.id.button_bottomNav_login) {
+                loginItemClicked();
+                return true;
+
+            } else if (item.getItemId() == R.id.button_bottomNav_signup) {
+                signupItemClicked();
+                return true;
+            }
+            return true;
+        });
+    }
+
+    private void signupItemClicked() {
+        Intent signUpIntent = new Intent(this, SignUpActivity.class);
+        startActivity(signUpIntent);
+    }
+
+    private void loginItemClicked() {
+        Intent intentHome = new Intent(this, HomeActivity.class);
+
+        EditText email = findViewById(R.id.editText_main_username);
+        EditText password = findViewById(R.id.editText_main_password);
+
+        String emailString = email.getText().toString();
+        String passwordString = password.getText().toString();
+
+        System.out.println("The email: " + email.getText().toString());
+        System.out.println("The password: " + password.getText().toString());
+
+        auth.signInWithEmailAndPassword(emailString, passwordString)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            intentHome.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intentHome);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+    }
+//
 
 }

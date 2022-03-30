@@ -1,29 +1,98 @@
 package com.bcit.titan;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Source;
+
 public class SettingsActivity extends AppCompatActivity {
+    FirebaseAuth auth;
+    FirebaseFirestore db;
+    EditText username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        username = findViewById(R.id.editText_settings_username);
         setupSpinner();
+        getUsername();
+
 
         Spinner spinner = findViewById(R.id.spinner_settings_difficulty_change);
 
 //        spinner.setOnItemSelectedListener();
 
+        Button logoutButton = findViewById(R.id.button_settings_logout);
+        logoutButton.setOnClickListener(view -> logoutButtonClicked());
+
+        Button submitButton = findViewById(R.id.button_settings_submit);
+        // need on click, to update username to save to db.
+
+//        String newPassword = "SOME-SECURE-PASSWORD";
+//        auth.getCurrentUser().updatePassword(newPassword)
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if (task.isSuccessful()) {
+//                            Log.d(TAG, "User password updated.");
+//                        }
+//                    }
+//                });
 
 
     }
 
+    private void getUsername() {
+
+        DocumentReference docRef = db.collection("users").document(auth.getCurrentUser().getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String usernameString = document.get("username").toString();
+                        username.setText(usernameString);
+
+                    } else {
+                        System.out.println(document.get("NO SUCH DOCUMENT"));
+                    }
+                } else {
+                    System.out.println(task.getException().toString());
+
+                }
+            }
+
+        });
+    }
+
+    private void logoutButtonClicked(){
+        auth.signOut();
+        Intent intentLogin = new Intent(this, MainActivity.class);
+        intentLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intentLogin);
+        finish();
+    }
 
     void setupSpinner() {
         Spinner spinner = findViewById(R.id.spinner_settings_difficulty_change);
