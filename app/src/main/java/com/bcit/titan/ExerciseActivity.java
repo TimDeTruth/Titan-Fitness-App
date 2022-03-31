@@ -35,13 +35,12 @@ public class ExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
 
-        String user_email = getIntent().getExtras().getString("user_email");
+        String user_email = "asdasdasd@asdasd.com";
 
 
 //        ExerciseDetails exercise1 = new ExerciseDetails("Push ups", R.drawable.exercises_push_up, 0);
 //        ExerciseDetails exercise2 = new ExerciseDetails("Squats", R.drawable.exercises_squats, 1);
 
-        setupSpinner();
 
         Intent intent = new Intent(this, WorkoutActivity.class);
         Spinner spinner = (Spinner) findViewById(R.id.spinner_exercise_list);
@@ -53,7 +52,6 @@ public class ExerciseActivity extends AppCompatActivity {
                 String selectedWorkout = spinner.getSelectedItem().toString();
                 Bundle extras = new Bundle();
                 switch (spinner.getSelectedItem().toString()) {
-
 
                     //upper
                     case "Push Ups":
@@ -159,5 +157,7 @@ public class ExerciseActivity extends AppCompatActivity {
         spinner.setAdapter(arrAdapter);
 
     }
+
+
 }
 

@@ -1,5 +1,6 @@
 package com.bcit.titan;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,48 +9,43 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class HomeActivity extends AppCompatActivity {
     FirebaseFirestore db;
     FirebaseAuth auth;
-
+    TextView name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        System.out.println("INSIDE HOME ON CREATE");
 
         Button exerciseButton = findViewById(R.id.button_home_exercise);
         Button progressButton = findViewById(R.id.button_home_progress);
         Button settingsButton = findViewById(R.id.button_home_settings);
 
-        TextView name = findViewById(R.id.textView_home_name);
+        name = findViewById(R.id.textView_home_name);
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
-
-        Intent intentExercise = new Intent(this, ExerciseActivity.class);
+        name.setAlpha(0);
+        getUsername();
+        Intent intentExercise = new Intent(this, WorkoutActivity.class);
         Intent intentProgress = new Intent(this, ProgressActivity.class);
         Intent intentSettings = new Intent(this, SettingsActivity.class);
-
-//        String user_email = getIntent().getExtras().getString("user_email");
-
-//        DocumentReference docref = db.collection("users").document(user_email);
-//        docref.addSnapshotListener(this, (documentSnapshot, error) -> {
-//            name.setText(documentSnapshot.getString("firstname"));
-//        });
 
 
 
         exerciseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                intentExercise.putExtra("user_email", user_email);
-//                startActivity(intentExercise);
+                startActivity(intentExercise);
             }
         });
 
@@ -68,6 +64,31 @@ public class HomeActivity extends AppCompatActivity {
 
                 startActivity(intentSettings);
             }
+        });
+    }
+
+    private void getUsername() {
+
+        DocumentReference docRef = db.collection("users").document(auth.getCurrentUser().getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String usernameString = document.get("username").toString();
+                        name.setText("Hello " + usernameString);
+                        name.setAlpha(1);
+
+                    } else {
+                        System.out.println(document.get("NO SUCH DOCUMENT"));
+                    }
+                } else {
+                    System.out.println(task.getException().toString());
+
+                }
+            }
+
         });
     }
 

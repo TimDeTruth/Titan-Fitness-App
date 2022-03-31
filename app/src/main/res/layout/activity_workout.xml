@@ -29,7 +29,16 @@
         android:id="@+id/gif_workout"
         android:layout_width="match_parent"
         android:layout_height="240dp"
+        android:alpha="0"
         android:src="@drawable/exercise_upper_push_ups" />
+
+    <TextView
+        android:id="@+id/texview_workout_defaultText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select one from above"
+        android:textSize="34sp"
+        android:visibility="visible" />
 
     <Button
 
@@ -39,15 +48,15 @@
         android:layout_height="125dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
+        android:alpha="0"
         android:background="@drawable/circle_button"
         android:fontFamily="@font/font_greek"
         android:padding="15dp"
         android:text="Start"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@color/design_default_color_error"
-        android:textSize="48sp"
 
-        />
+        android:textSize="48sp" />
 
     <TextView
         android:id="@+id/textView_workout_timer"
@@ -57,6 +66,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="0dp"
 
+        android:alpha="0"
         android:gravity="center"
         android:paddingBottom="0dp"
         android:text="00:30:00"
@@ -69,15 +79,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:alpha="0"
         android:ems="10"
         android:gravity="center_horizontal"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:text="0" />
 
     <Button
         android:id="@+id/button_workout_submit"
         android:layout_width="179dp"
         android:layout_height="55dp"
         android:layout_gravity="center_horizontal"
+        android:alpha="0"
         android:fontFamily="@font/font_greek"
         android:text="Submit"
         android:textColor="#E10707"

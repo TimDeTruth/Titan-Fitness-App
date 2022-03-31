@@ -1,5 +1,6 @@
 package com.bcit.titan;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,18 +15,31 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import pl.droidsonroids.gif.GifImageView;
 
 public class WorkoutActivity extends AppCompatActivity {
 
+    Spinner spinner;
     TextView timer;
     Button start, pause, reset;
     int countDown = 0;
     FirebaseFirestore db;
-
+    FirebaseAuth auth;
+    Button submit;
 
     public final String DIPSID = Integer.toString(R.drawable.exercise_upper_dips);
     public final String PUSHUPSID = Integer.toString(R.drawable.exercise_upper_push_ups);
@@ -48,6 +62,8 @@ public class WorkoutActivity extends AppCompatActivity {
     String co = "";
     String lo = "";
 
+    String bodyparts;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,56 +71,58 @@ public class WorkoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_workout);
 
         db = FirebaseFirestore.getInstance();
-        Bundle inBundle = getIntent().getExtras();
-        String[] selectedWorkout = inBundle.getStringArray("WORKOUTKEY");
+        spinner = findViewById(R.id.spinner_workout_dropdown);
 
-        String user_email = selectedWorkout[4];
-        TextView toUpdate = findViewById(R.id.textView_workout_invisibileCategory);
-        DocumentReference docref = db.collection("users").document(user_email);
-        docref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                up = documentSnapshot.getString("Upper");
-                co = documentSnapshot.getString("Core");
-                lo = documentSnapshot.getString("Lower");
-            }
-        });
-//        docref.addSnapshotListener(this, (documentSnapShot, error) -> {
-//            up.concat(documentSnapShot.getString("Upper").toString());
-//            co = documentSnapShot.getString("Core");
-//            lo = documentSnapShot.getString("Lower");
+//        Bundle inBundle = getIntent().getExtras();
+//        String[] selectedWorkout = inBundle.getStringArray("WORKOUTKEY");
+//
+//        String user_email = selectedWorkout[4];
+//        TextView toUpdate = findViewById(R.id.textView_workout_invisibileCategory);
+//        DocumentReference docref = db.collection("users").document(user_email);
+//        docref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                up = documentSnapshot.getString("Upper");
+//                co = documentSnapshot.getString("Core");
+//                lo = documentSnapshot.getString("Lower");
+//            }
 //        });
-
-        System.out.println("Workout Activity upper is " + up.toString() + " core is " + co.toString() + " lower is " + lo);
-
-
-        if(selectedWorkout[3].equals("upper")){
-            docref.addSnapshotListener(this, (documentSnapShot, error) -> {
-                toUpdate.setText(documentSnapShot.getString("Upper"));
-            });
-        }else if(selectedWorkout[3].equals("core")){
-            docref.addSnapshotListener(this, (documentSnapShot, error) -> {
-                toUpdate.setText(documentSnapShot.getString("Core"));
-            });
-        }else if(selectedWorkout[3].equals("lower")){
-            docref.addSnapshotListener(this, (documentSnapShot, error) -> {
-                toUpdate.setText(documentSnapShot.getString("Lower"));
-            });
-        }else{
-            System.out.println("Not possible.");
-        }
-
-
+////        docref.addSnapshotListener(this, (documentSnapShot, error) -> {
+////            up.concat(documentSnapShot.getString("Upper").toString());
+////            co = documentSnapShot.getString("Core");
+////            lo = documentSnapShot.getString("Lower");
+////        });
+//
+//        System.out.println("Workout Activity upper is " + up.toString() + " core is " + co.toString() + " lower is " + lo);
+//
+//
+//        if(selectedWorkout[3].equals("upper")){
+//            docref.addSnapshotListener(this, (documentSnapShot, error) -> {
+//                toUpdate.setText(documentSnapShot.getString("Upper"));
+//            });
+//        }else if(selectedWorkout[3].equals("core")){
+//            docref.addSnapshotListener(this, (documentSnapShot, error) -> {
+//                toUpdate.setText(documentSnapShot.getString("Core"));
+//            });
+//        }else if(selectedWorkout[3].equals("lower")){
+//            docref.addSnapshotListener(this, (documentSnapShot, error) -> {
+//                toUpdate.setText(documentSnapShot.getString("Lower"));
+//            });
+//        }else{
+//            System.out.println("Not possible.");
+//        }
+//
+//
 
 
         setupSpinner();
-        refresh();
+//        refresh();
 
+        submit = findViewById(R.id.button_workout_submit);
         Intent intent = new Intent(this, ProgressActivity.class);
         Bundle extras = new Bundle();
-        Button button = findViewById(R.id.button_workout_submit);
         EditText enteredReps = findViewById(R.id.editText_workout_reps);
-        button.setOnClickListener(new View.OnClickListener() {
+        submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 submitReps();
@@ -113,190 +131,27 @@ public class WorkoutActivity extends AppCompatActivity {
 
 
     }
-
     public void submitReps(){
         db = FirebaseFirestore.getInstance();
-
+        auth = FirebaseAuth.getInstance();
         Intent intent = new Intent(this, ProgressActivity.class);
         EditText enteredReps = findViewById(R.id.editText_workout_reps);
-        TextView categoryUpdate = findViewById(R.id.textView_workout_invisibileCategory);
+        int enteredRepsCount = Integer.parseInt(enteredReps.getText().toString());
+        DocumentReference docref = db.collection("exercises").document(auth.getCurrentUser().getUid());
 
-        Bundle inBundle = getIntent().getExtras();
-        String[] selectedWorkoutKey = inBundle.getStringArray("WORKOUTKEY");
-
-        String user_email = selectedWorkoutKey[4];
-
-        DocumentReference docref = db.collection("users").document(user_email);
-
-        if(enteredReps != null){
-            if(category.equals("upper")){
-                upperReps += Integer.parseInt(enteredReps.getText().toString());
-                docref.addSnapshotListener(this, (documentSnapShot, error) -> {
-                   categoryUpdate.setText(documentSnapShot.getString("Upper"));
-                });
-                int upper = Integer.parseInt(categoryUpdate.getText().toString() + upperReps);
-                docref.update("Upper", upper + "").addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        System.out.println("Updated: " + upper);
-                        upperReps = 0;
-                    }
-                });
-
-            }else if(category.equals("core")){
-                coreReps += Integer.parseInt(enteredReps.getText().toString());
-                docref.addSnapshotListener(this, (documentSnapShot, error) -> {
-                    categoryUpdate.setText(documentSnapShot.getString("Core"));
-                });
-                int core = Integer.parseInt(categoryUpdate.getText().toString() + coreReps);
-                docref.update("Core", core + "").addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        System.out.println("Updated: " + core);
-                        coreReps = 0;
-                    }
-                });
-
-            }else if(category.equals("lower")){
-                lowerReps += Integer.parseInt(enteredReps.getText().toString());
-                docref.addSnapshotListener(this, (documentSnapShot, error) -> {
-                    categoryUpdate.setText(documentSnapShot.getString("Lower"));
-                });
-                int lower = Integer.parseInt(categoryUpdate.getText().toString() + lowerReps);
-                docref.update("Lower", lower + "").addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        System.out.println("Updated: " + lower);
-                        lowerReps = 0;
-                    }
-                });
-            }else{
-                System.out.println("Doesn't Exist");
-            }
-        }
-
-        Bundle pieExtras = new Bundle();
-        String[] pieData = {category, enteredReps.getText().toString(), user_email};
-        pieExtras.putStringArray("PIEKEY", pieData);
-        intent.putExtras(pieExtras);
-
-        System.out.println(pieData[0] + " " + pieData[1] + " " + pieData[2]);
-
-        startActivity(intent);
-
-    }
-
-    void refresh() {
-        setupSpinner();
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_workout_dropdown);
-
-        Intent intent = getIntent();
-        Bundle workoutExtras = intent.getExtras();
-
-
-        TextView textView = findViewById(R.id.textView_workout_title);
-        ImageView imageView = findViewById(R.id.gif_workout);
-
-        int selectedExerciseId = workoutExtras.getInt("workoutResource");
-        System.out.println("The resource ID: " + workoutExtras.getInt("workoutResource"));
-        String selectedExerciseName = workoutExtras.getString("workoutName");
-        textView.setText(selectedExerciseName);
-        imageView.setImageResource(selectedExerciseId);
-        String selectedExerciseTime = workoutExtras.getString("workoutTime");
-
-        Bundle inBundle = getIntent().getExtras();
-        String[] selectedWorkoutKey = inBundle.getStringArray("WORKOUTKEY");
-
-
-        String user_email = selectedWorkoutKey[4];
-
-        textView.setText(selectedWorkoutKey[0]);
-        imageView.setImageResource(Integer.parseInt(selectedWorkoutKey[1]));
-        int startTimer = Integer.parseInt(selectedWorkoutKey[2]);
-        timers(startTimer);
-
-        category = selectedWorkoutKey[3];
-
-        Intent intents = new Intent(this, this.getClass());
-        Spinner spinners = (Spinner) findViewById(R.id.spinner_workout_dropdown);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        docref.update(bodyparts, FieldValue.increment(enteredRepsCount)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-//                String selectedWorkout = spinner.getSelectedItem().toString();
-                Bundle extras = new Bundle();
-                switch (spinners.getSelectedItem().toString()) {
-                    //upper
-                    case "Push Ups":
-                        String[] pushUpsArr = {"Push Ups", PUSHUPSID, 60000 + "", "upper", user_email};
-                        extras.putStringArray("WORKOUTKEY", pushUpsArr);
-                        intent.putExtras(extras);
-                        startActivity(intent);
-                        break;
-                    case "Dips":
-                        String[] dipsArr = {"Dips", DIPSID, 45000 + "", "upper", user_email};
-                        extras.putStringArray("WORKOUTKEY", dipsArr);
-                        intent.putExtras(extras);
-                        startActivity(intent);
-                        break;
-                    case "Pull Ups":
-                        String[] pullUpsArr = {"Pull Ups", PULLUPSID, 50000 + "", "upper", user_email};
-                        extras.putStringArray("WORKOUTKEY", pullUpsArr);
-                        intent.putExtras(extras);
-                        startActivity(intent);
-                        break;
-
-                    //Lower
-                    case "Squats":
-                        String[] squatArray = {"Squats", SQUATID, 60000 + "", "lower", user_email};
-                        extras.putStringArray("WORKOUTKEY", squatArray);
-                        intent.putExtras(extras);
-                        startActivity(intent);
-                        break;
-                    case "Lunges":
-                        String[] lungesArr = {"Lunges", LUNGEID, 60000 + "", "lower", user_email};
-                        extras.putStringArray("WORKOUTKEY", lungesArr);
-                        intent.putExtras(extras);
-                        startActivity(intent);
-                        break;
-                    case "Deadlift":
-                        String[] deadliftArr = {"Dead", DEADLIFTID, 45000 + "", "lower", user_email};
-                        extras.putStringArray("WORKOUTKEY", deadliftArr);
-                        intent.putExtras(extras);
-                        startActivity(intent);
-                        break;
-
-
-                    //Core
-                    case "Plank":
-                        String[] plankArr = {"Plank", PLANKID, 120000 + "", "core", user_email};
-                        extras.putStringArray("WORKOUTKEY", plankArr);
-                        intent.putExtras(extras);
-                        startActivity(intent);
-                        break;
-                    case "Leg Raises":
-                        String[] legRaisesArr = {"Lunges", LEGRAISESID, 50000 + "", "core", user_email};
-                        extras.putStringArray("WORKOUTKEY", legRaisesArr);
-                        intent.putExtras(extras);
-                        startActivity(intent);
-                        break;
-                    case "Elbow to knee":
-                        String[] elbowToKneeArr = {"Bulgarian Split Squat", ELBOWTOKNEEID, 45000 + "", "core", user_email};
-                        extras.putStringArray("WORKOUTKEY", elbowToKneeArr);
-                        intent.putExtras(extras);
-                        startActivity(intent);
-                        break;
-
-
-
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    System.out.println("SUCCESSSSS");
+                }else {
+                    Map<String, Object> dataMap = new HashMap<>();
+                    dataMap.put(bodyparts, enteredRepsCount);
+                    docref.set(dataMap);
                 }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
         });
+
 
     }
 
@@ -334,16 +189,79 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
     void setupSpinner() {
-        Spinner spinner = findViewById(R.id.spinner_workout_dropdown);
 
         ArrayAdapter<CharSequence> arrAdapter = ArrayAdapter.createFromResource(this,
                 R.array.workout_list, android.R.layout.simple_spinner_dropdown_item);
 
         arrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrAdapter);
+        TextView defaultText = findViewById(R.id.texview_workout_defaultText);
+        spinner.setSelection(0,false);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+//                String selectedWorkout = spinner.getSelectedItem().toString();
+                Bundle extras = new Bundle();
+                switch (spinner.getSelectedItem().toString()) {
+                    //upper
+                    case "Push Ups":
+                    case "Dips":
+                    case "Pull Ups":
+                        System.out.println(spinner.getSelectedItem().toString());
+                        defaultText.setVisibility(View.GONE);
+                        updateComponents(spinner.getSelectedItem().toString());
+                        bodyparts = "upper";
+                        submitReps();
+                        break;
+                    //Lower
+                    case "Squats":
+                    case "Lunges":
+                    case "Deadlift":
+                        System.out.println(spinner.getSelectedItem().toString());
+                        defaultText.setVisibility(View.GONE);
+                        updateComponents(spinner.getSelectedItem().toString());
+                        bodyparts = "lower";
+                        submitReps();
+                        break;
+
+
+                    //Core
+                    case "Plank":
+                    case "Leg Raises":
+                    case "Elbow to knee":
+                        System.out.println(spinner.getSelectedItem().toString());
+                        defaultText.setVisibility(View.GONE);
+                        updateComponents(spinner.getSelectedItem().toString());
+                        bodyparts = "core";
+                        submitReps();
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
+    private void updateComponents(String workoutTitle){
+        TextView title = findViewById(R.id.textView_workout_title);
+        GifImageView gifImageView = findViewById(R.id.gif_workout);
+        Button startButton = findViewById(R.id.button_workout_start);
+        TextView workoutTimer = findViewById(R.id.textView_workout_timer);
+        EditText repsEditText = findViewById(R.id.editText_workout_reps);
+        submit = findViewById(R.id.button_workout_submit);
+
+        title.setAlpha(1);
+        gifImageView.setAlpha(1.0f);
+        startButton.setAlpha(1);
+        workoutTimer.setAlpha(1);
+        repsEditText.setAlpha(1);
+        submit.setAlpha(1);
+        title.setText(workoutTitle);
+    }
 
 
 }
