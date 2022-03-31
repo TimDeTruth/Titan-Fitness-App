@@ -1,28 +1,44 @@
 package com.bcit.titan;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
 
+
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+
 
 public class ProgressActivity extends AppCompatActivity {
     private PieChart pieChart;
     FirebaseFirestore db;
+    FirebaseAuth auth;
+
+    float core;
+    float upper;
+    float lower;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +55,7 @@ public class ProgressActivity extends AppCompatActivity {
         pieChart.setUsePercentValues(true);
         pieChart.setEntryLabelTextSize(12);
         pieChart.setEntryLabelColor(Color.BLACK);
-        pieChart.setCenterText("Volume");
+        pieChart.setCenterText("Activity");
         pieChart.setCenterTextSize(24);
         pieChart.setHoleColor(Color.WHITE);
 
@@ -62,27 +78,28 @@ public class ProgressActivity extends AppCompatActivity {
     }
 
     private void loadPieChartData() {
-        Bundle pieBundle = getIntent().getExtras();
-        String[] repsArray = pieBundle.getStringArray("PIEKEY");
+//        Bundle pieBundle = getIntent().getExtras();
+//        String[] repsArray = pieBundle.getStringArray("PIEKEY");
 
-        String user_email = repsArray[2];
+//        String user_email = repsArray[2];
         db = FirebaseFirestore.getInstance();
-        TextView upper = findViewById(R.id.textView_progress_upper);
-        TextView core = findViewById(R.id.textView_progress_core);
-        TextView lower = findViewById(R.id.textView_progress_lower);
+        auth = FirebaseAuth.getInstance();
+//        TextView upper = findViewById(R.id.textView_progress_upper);
+//        TextView core = findViewById(R.id.textView_progress_core);
+//        TextView lower = findViewById(R.id.textView_progress_lower);
 
-        DocumentReference docref = db.collection("users").document(user_email);
-        docref.addSnapshotListener(this, (documentSnapShot, error) -> {
-            upper.setText(documentSnapShot.getString("Upper"));
-            core.setText(documentSnapShot.getString("Core"));
-            lower.setText(documentSnapShot.getString("Lower"));
-        });
-
-        System.out.println("Upper is " + upper.getText().toString() + "\n" +
-                "core is " + core.getText().toString() + " \n" +
-                "lower is " + lower.getText().toString());
-
-        System.out.println(repsArray[1]);
+//        DocumentReference docref = db.collection("users").document(user_email);
+//        docref.addSnapshotListener(this, (documentSnapShot, error) -> {
+//            upper.setText(documentSnapShot.getString("Upper"));
+//            core.setText(documentSnapShot.getString("Core"));
+//            lower.setText(documentSnapShot.getString("Lower"));
+//        });
+//
+//        System.out.println("Upper is " + upper.getText().toString() + "\n" +
+//                "core is " + core.getText().toString() + " \n" +
+//                "lower is " + lower.getText().toString());
+//
+//        System.out.println(repsArray[1]);
 
 //        String u = upper.getText().toString();
 //        String c = upper.getText().toString();
@@ -111,10 +128,34 @@ public class ProgressActivity extends AppCompatActivity {
 //        System.out.println("Upper: " + core.getText().toString());
 //        System.out.println(lower.getText().toString());
 
+
+        DocumentReference docref = db.collection("exercises").document(auth.getCurrentUser().getUid());
+        docref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        chart(document);
+                        updateChart();
+//                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+
+                    } else {
+//                        Log.d(TAG, "No such document");
+                    }
+                } else {
+//                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+    }
+
+    private void updateChart(){
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(0.8f, "Upper Body"));
-        entries.add(new PieEntry(0.15f, "Lower Body"));
-        entries.add(new PieEntry(0.1f, "Legs"));
+        entries.add(new PieEntry( upper,"Upper Body"));
+        entries.add(new PieEntry(lower, "Lower Body"));
+        entries.add(new PieEntry(core, "Legs"));
         ;
 
         ArrayList<Integer> colors = new ArrayList<>();
@@ -141,5 +182,14 @@ public class ProgressActivity extends AppCompatActivity {
         pieChart.invalidate();
 
         pieChart.animateY(1400, Easing.EaseOutSine);
+    }
+
+    private void chart(DocumentSnapshot document){
+        upper = Float.parseFloat(document.getData().get("upper").toString());
+        core = (Float) Float.parseFloat(document.getData().get("core").toString());
+        lower = (Float) Float.parseFloat(document.getData().get("lower").toString());
+
+
+        System.out.println(upper + " " + core + " " + lower);
     }
 }
