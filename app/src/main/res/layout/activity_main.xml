@@ -23,7 +23,10 @@
         android:textColor="@color/design_default_color_error"
         android:textSize="69sp"
         tools:layout_editor_absoluteX="97dp"
-        tools:layout_editor_absoluteY="34dp" />
+        tools:layout_editor_absoluteY="34dp"
+
+        android:transitionName="transition_splash_text"
+        />
 
     <TextView
         android:id="@+id/textView_main_slogan"
@@ -51,7 +54,11 @@
         app:srcCompat="@drawable/chris"
         tools:layout_editor_absoluteX="80dp"
         tools:layout_editor_absoluteY="242dp"
-        tools:src="@drawable/chris" />
+        tools:src="@drawable/chris"
+
+
+        android:transitionName="transition_splash_image"
+        />
 
     <EditText
         android:id="@+id/editText_main_username"
