@@ -17,7 +17,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/font_greek"
         android:gravity="center"
-        android:text="Exercise"
+        android:text="@string/exercise"
         android:textColor="@color/design_default_color_error"
         android:textSize="48sp" />
 
@@ -44,7 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="Select one from above"
+        android:text="@string/select_one_from_above"
+        android:textColor="@color/design_default_color_error"
         android:textSize="34sp"
         android:visibility="visible" />
 
@@ -61,7 +62,7 @@
         android:background="@drawable/circle_button"
         android:fontFamily="@font/font_greek"
         android:padding="15dp"
-        android:text="Start"
+        android:text="@string/start"
         android:textAppearance="?android:textAppearanceLarge"
 
         android:textColor="@color/design_default_color_error"
@@ -79,7 +80,7 @@
         android:alpha="0"
         android:gravity="center"
         android:paddingBottom="0dp"
-        android:text="00:30:00"
+        android:text="@string/_00_30_00"
         android:textColor="#000000"
         android:textSize="50dp"
         android:textStyle="bold" />
@@ -94,7 +95,7 @@
         android:ems="10"
         android:gravity="center_horizontal"
         android:inputType="textPersonName"
-        android:text="0" />
+        android:text="@string/_0" />
 
     <Button
         android:id="@+id/button_workout_submit"
@@ -104,7 +105,7 @@
         android:layout_weight="1"
         android:alpha="0"
         android:fontFamily="@font/font_greek"
-        android:text="Submit"
+        android:text="@string/submit"
         android:textColor="#E10707"
         android:textSize="24sp" />
 

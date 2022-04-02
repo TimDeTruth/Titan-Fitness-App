@@ -15,7 +15,7 @@
         android:layout_weight="0.8"
         android:fontFamily="@font/font_greek"
         android:gravity="center"
-        android:text="Sign up"
+        android:text="@string/sign_up"
         android:textColor="@color/design_default_color_error"
         android:textSize="48sp" />
 
@@ -26,7 +26,7 @@
         android:layout_marginVertical="50px"
         android:layout_weight="1"
         android:ems="10"
-        android:hint="User Name"
+        android:hint="@string/user_name"
         android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
@@ -38,7 +38,7 @@
         android:layout_marginVertical="50px"
         android:layout_weight="1"
         android:ems="10"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
@@ -50,7 +50,7 @@
         android:layout_marginVertical="50px"
         android:layout_weight="1"
         android:ems="10"
-        android:hint="First Name"
+        android:hint="@string/first_name"
         android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
@@ -62,7 +62,7 @@
         android:layout_marginVertical="50px"
         android:layout_weight="1"
         android:ems="10"
-        android:hint="Last Name"
+        android:hint="@string/last_name"
         android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
@@ -74,7 +74,7 @@
         android:layout_marginVertical="50px"
         android:layout_weight="1"
         android:ems="10"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
@@ -86,6 +86,6 @@
         android:layout_marginVertical="100px"
         android:layout_weight="1"
         android:onClick="addPerson"
-        android:text="Submit"
+        android:text="@string/submit"
         android:textColor="@color/design_default_color_error" />
 </LinearLayout>

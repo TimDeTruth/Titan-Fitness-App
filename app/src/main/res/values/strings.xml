@@ -33,20 +33,36 @@
         <item>Titan</item>
     </string-array>
 
+    <!--Body part descriptions-->
     <string name="core_description">Core is good for everyday tasks.</string>
     <string name="upper_description">A good upper body can give the illusion that you are bigger
     than you actually look.</string>
     <string name="lower_description">Don\'t skip leg day guys, legs are very important because you use it to walk everyday.</string>
     <string name="progress">Progress</string>
-    <string name="submit">Submit</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="user_name">User Name</string>
-    <string name="last_name">Last Name</string>
-    <string name="first_name">First Name</string>
-    <string name="sign_up">Sign up</string>
+
+
+    <!--Home Screen button names-->
     <string name="home_exercise">EXERCISE</string>
     <string name="home_progress">PROGRESS</string>
     <string name="home_settings">SETTINGS</string>
+
+    <!--Workout Texts-->
+    <string name="start">Start</string>
+    <string name="select_one_from_above">Select one from above</string>
+    <string name="exercise">Exercise</string>
+    <string name="_00_30_00">00:30:00</string>
+    <string name="_0">0</string>
+
+    <!--Sign up -->
+    <string name="sign_up">Sign up</string>
+    <string name="user_name">User Name</string>
+    <string name="first_name">First Name</string>
+    <string name="submit">Submit</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
+
+    <string name="textview">TextView</string>
 
 </resources>
