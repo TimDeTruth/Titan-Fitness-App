@@ -135,6 +135,7 @@ public class WorkoutActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         Intent intent = new Intent(this, ProgressActivity.class);
+        Button submitButton = findViewById(R.id.button_workout_submit);
         EditText enteredReps = findViewById(R.id.editText_workout_reps);
         int enteredRepsCount = Integer.parseInt(enteredReps.getText().toString());
         DocumentReference docref = db.collection("exercises").document(auth.getCurrentUser().getUid());
@@ -151,20 +152,26 @@ public class WorkoutActivity extends AppCompatActivity {
                 }
             }
         });
-
-
+        enteredReps.setText("0");
+        submitButton.setEnabled(false);
     }
 
     void timers(int startTimer) {
 
-
         timer = (TextView) findViewById(R.id.textView_workout_timer);
         start = (Button) findViewById(R.id.button_workout_start);
+        EditText repsEditText = findViewById(R.id.editText_workout_reps);
+        Button submitButton = findViewById(R.id.button_workout_submit);
+
+        repsEditText.setEnabled(false);
+        submitButton.setEnabled(false);
+
 
         timer.setText(startTimer / 1000 + "");
 
         start.setOnClickListener(new View.OnClickListener() {
             int one = 0;
+            boolean toggle = false;
 
             @Override
             public void onClick(View view) {
@@ -177,15 +184,22 @@ public class WorkoutActivity extends AppCompatActivity {
                     }
 
                     public void onFinish() {
+
                         timer.setText("done!");
+
+                        repsEditText.setEnabled(true);
+                        submitButton.setEnabled(true);
                     }
                 };
                 if (one == 1) {
                     count.start();
                 }
-
             }
         });
+    }
+
+    void cancelMe(){
+
     }
 
     void setupSpinner() {
@@ -200,6 +214,7 @@ public class WorkoutActivity extends AppCompatActivity {
         spinner.setAdapter(arrAdapter);
         TextView defaultText = findViewById(R.id.texview_workout_defaultText);
         spinner.setSelection(0,false);
+        EditText enteredReps = findViewById(R.id.editText_workout_reps);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -211,6 +226,7 @@ public class WorkoutActivity extends AppCompatActivity {
                     case "Push Ups":
                     case "Dips":
                     case "Pull Ups":
+                        enteredReps.setText("0");
                         workoutData.set_workout(spinner.getSelectedItem().toString());
                         timers(workoutData.getWorkoutTime());
                         imageView.setImageResource(workoutData.get_image());
@@ -253,7 +269,7 @@ public class WorkoutActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                
+
             }
         });
     }

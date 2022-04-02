@@ -16,9 +16,6 @@
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".ExerciseActivity"
-            android:exported="false" />
-        <activity
             android:name=".ProgressActivity"
             android:exported="false" />
         <activity
