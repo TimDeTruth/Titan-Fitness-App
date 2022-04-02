@@ -94,15 +94,36 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void easyButton(View view){
-
+        Button easyButton = findViewById(R.id.button_settings_easy);
+        Button mediumButton = findViewById(R.id.button_settings_medium);
+        Button hardButton = findViewById(R.id.button_settings_hard);
+        easyButton.setEnabled(false);
+        mediumButton.setEnabled(true);
+        hardButton.setEnabled(true);
+        WorkoutData data = new WorkoutData();
+        data.setWorkout_level(1);
     }
 
     public void mediumButton(View view){
-
+        Button easyButton = findViewById(R.id.button_settings_easy);
+        Button mediumButton = findViewById(R.id.button_settings_medium);
+        Button hardButton = findViewById(R.id.button_settings_hard);
+        easyButton.setEnabled(true);
+        mediumButton.setEnabled(false);
+        hardButton.setEnabled(true);
+        WorkoutData data = new WorkoutData();
+        data.setWorkout_level(1.5f);
     }
 
     public void hardButton(View view){
-
+        Button easyButton = findViewById(R.id.button_settings_easy);
+        Button mediumButton = findViewById(R.id.button_settings_medium);
+        Button hardButton = findViewById(R.id.button_settings_hard);
+        easyButton.setEnabled(true);
+        mediumButton.setEnabled(true);
+        hardButton.setEnabled(false);
+        WorkoutData data = new WorkoutData();
+        data.setWorkout_level(2f);
     }
 
 //    void setupSpinner() {

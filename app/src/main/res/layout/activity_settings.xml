@@ -61,6 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:onClick="easyButton"
             android:text="@string/settings_easy"
             android:textColor="@color/design_default_color_error" />
 
@@ -70,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:onClick="mediumButton"
             android:text="@string/settings_medium"
             android:textColor="@color/design_default_color_error" />
 
@@ -79,6 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:onClick="hardButton"
             android:text="@string/settings_hard"
             android:textColor="@color/design_default_color_error" />
     </LinearLayout>
