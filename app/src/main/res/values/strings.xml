@@ -45,5 +45,8 @@
     <string name="last_name">Last Name</string>
     <string name="first_name">First Name</string>
     <string name="sign_up">Sign up</string>
+    <string name="home_exercise">EXERCISE</string>
+    <string name="home_progress">PROGRESS</string>
+    <string name="home_settings">SETTINGS</string>
 
 </resources>
