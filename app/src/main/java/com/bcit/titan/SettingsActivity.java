@@ -7,10 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,11 +36,8 @@ public class SettingsActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         username = findViewById(R.id.editText_settings_username);
-        setupSpinner();
         getUsername();
 
-
-        Spinner spinner = findViewById(R.id.spinner_settings_difficulty_change);
 
 //        spinner.setOnItemSelectedListener();
 
@@ -94,16 +93,67 @@ public class SettingsActivity extends AppCompatActivity {
         finish();
     }
 
-    void setupSpinner() {
-        Spinner spinner = findViewById(R.id.spinner_settings_difficulty_change);
-
-        ArrayAdapter<CharSequence> arrAdapter = ArrayAdapter.createFromResource(this,
-                R.array.difficulty, android.R.layout.simple_spinner_dropdown_item);
-
-        arrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrAdapter);
+    public void easyButton(View view){
 
     }
+
+    public void mediumButton(View view){
+
+    }
+
+    public void hardButton(View view){
+
+    }
+
+//    void setupSpinner() {
+//        Spinner spinner = findViewById(R.id.spinner_settings_difficulty_change);
+//        WorkoutData workoutData = new WorkoutData();
+//
+//        ArrayAdapter<CharSequence> arrAdapter = ArrayAdapter.createFromResource(this,
+//                R.array.difficulty, android.R.layout.simple_spinner_dropdown_item);
+//
+//        arrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner.setAdapter(arrAdapter);
+//
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                int spinnerPosition = spinner.getSelectedItemPosition();
+//                switch(spinner.getSelectedItem().toString()){
+//                    case "Easy":
+//                        workoutData.setWorkout_level(1f);
+//                        spinner.setSelection(spinnerPosition);
+//                        Toast.makeText(SettingsActivity.this, "Level: Easy. Settings Changed. Don't click Submit.",
+//                                Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case "Medium":
+//                        workoutData.setWorkout_level(1.5f);
+//                        Toast.makeText(SettingsActivity.this, "Level: Medium. Settings Changed. Don't click Submit.",
+//                                Toast.LENGTH_SHORT).show();
+//                        spinner.setSelection(spinnerPosition);
+//                        break;
+//                    case "Hard":
+//                        workoutData.setWorkout_level(2f);
+//                        Toast.makeText(SettingsActivity.this, "Level: Hard. Settings Changed. Don't click Submit.",
+//                                Toast.LENGTH_SHORT).show();
+//                        spinner.setSelection(spinnerPosition);
+//                        break;
+//                    case "Titan":
+//                        workoutData.setWorkout_level(3f);
+//                        Toast.makeText(SettingsActivity.this, "Level: Titan. Settings Changed. Don't click Submit.",
+//                                Toast.LENGTH_SHORT).show();
+//                        spinner.setSelection(spinnerPosition);
+//                        break;
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
+
+//    }
 
 
 }

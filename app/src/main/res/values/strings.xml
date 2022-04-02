@@ -64,5 +64,8 @@
 
 
     <string name="textview">TextView</string>
+    <string name="settings_easy">EASY</string>
+    <string name="settings_medium">MEDIUM</string>
+    <string name="settings_hard">HARD</string>
 
 </resources>

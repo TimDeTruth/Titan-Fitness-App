@@ -6,7 +6,7 @@ public class WorkoutData {
     private static int workoutTime;
     private static String exerciseName;
     private static String user_email;
-    private static float workout_level = 1;
+    private static float workout_level = 1f;
 
 
     public void set_workout(String exerciseName) {
