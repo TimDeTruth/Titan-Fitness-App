@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -96,12 +97,38 @@ public class SettingsActivity extends AppCompatActivity {
 
     void setupSpinner() {
         Spinner spinner = findViewById(R.id.spinner_settings_difficulty_change);
+        WorkoutData workoutData = new WorkoutData();
 
         ArrayAdapter<CharSequence> arrAdapter = ArrayAdapter.createFromResource(this,
                 R.array.difficulty, android.R.layout.simple_spinner_dropdown_item);
 
         arrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch(spinner.getSelectedItem().toString()){
+                    case "Easy":
+                        workoutData.setWorkout_level(1f);
+                        break;
+                    case "Medium":
+                        workoutData.setWorkout_level(1.5f);
+                        break;
+                    case "Hard":
+                        workoutData.setWorkout_level(2f);
+                        break;
+                    case "Titan":
+                        workoutData.setWorkout_level(3f);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
     }
 
