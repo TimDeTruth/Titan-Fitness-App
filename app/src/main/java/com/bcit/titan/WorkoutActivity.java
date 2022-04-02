@@ -73,6 +73,15 @@ public class WorkoutActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         spinner = findViewById(R.id.spinner_workout_dropdown);
 
+
+        Button startButton = findViewById(R.id.button_workout_start);
+        EditText repsEditText = findViewById(R.id.editText_workout_reps);
+        submit = findViewById(R.id.button_workout_submit);
+
+        startButton.setEnabled(false);
+        repsEditText.setEnabled(false);
+        submit.setEnabled(false);
+
 //        Bundle inBundle = getIntent().getExtras();
 //        String[] selectedWorkout = inBundle.getStringArray("WORKOUTKEY");
 //
@@ -163,6 +172,7 @@ public class WorkoutActivity extends AppCompatActivity {
         EditText repsEditText = findViewById(R.id.editText_workout_reps);
         Button submitButton = findViewById(R.id.button_workout_submit);
 
+        Spinner spinner = findViewById(R.id.spinner_workout_dropdown);
         repsEditText.setEnabled(false);
         submitButton.setEnabled(false);
 
@@ -173,8 +183,11 @@ public class WorkoutActivity extends AppCompatActivity {
             int one = 0;
             boolean toggle = false;
 
+
             @Override
             public void onClick(View view) {
+
+                spinner.setEnabled(false);
                 one++;
                 CountDownTimer count = new CountDownTimer(startTimer, 1000) {
 
@@ -186,9 +199,13 @@ public class WorkoutActivity extends AppCompatActivity {
                     public void onFinish() {
 
                         timer.setText("done!");
+                        spinner.setEnabled(true);
+
 
                         repsEditText.setEnabled(true);
                         submitButton.setEnabled(true);
+
+
                     }
                 };
                 if (one == 1) {
@@ -211,9 +228,15 @@ public class WorkoutActivity extends AppCompatActivity {
         TextView defaultText = findViewById(R.id.texview_workout_defaultText);
         spinner.setSelection(0,false);
         EditText enteredReps = findViewById(R.id.editText_workout_reps);
+        Button startButton = findViewById(R.id.button_workout_start);
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                startButton.setEnabled(true);
+
 
 //                String selectedWorkout = spinner.getSelectedItem().toString();
                 Bundle extras = new Bundle();
@@ -285,7 +308,12 @@ public class WorkoutActivity extends AppCompatActivity {
         repsEditText.setAlpha(1);
         submit.setAlpha(1);
         title.setText(workoutTitle);
+
+
+
+
     }
+
 
 
 }
