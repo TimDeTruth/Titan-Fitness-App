@@ -253,7 +253,7 @@ public class WorkoutActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                
             }
         });
     }

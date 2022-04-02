@@ -15,17 +15,6 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView_home_greeting"
-            android:layout_width="87dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5sp"
-            android:layout_weight="0.5"
-            android:text="Hello"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <TextView
             android:id="@+id/textView_home_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -14,6 +14,7 @@
         android:id="@+id/textView_workout_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:fontFamily="@font/font_greek"
         android:gravity="center"
         android:text="Exercise"
@@ -23,12 +24,17 @@
     <Spinner
         android:id="@+id/spinner_workout_dropdown"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight=".5"
+        android:background="@color/some_gray" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gif_workout"
         android:layout_width="match_parent"
         android:layout_height="240dp"
+        android:layout_weight="1"
         android:alpha="0"
         android:src="@drawable/exercise_upper_push_ups" />
 
@@ -36,6 +42,8 @@
         android:id="@+id/texview_workout_defaultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
         android:text="Select one from above"
         android:textSize="34sp"
         android:visibility="visible" />
@@ -48,14 +56,15 @@
         android:layout_height="125dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
+        android:layout_weight="1"
         android:alpha="0"
         android:background="@drawable/circle_button"
         android:fontFamily="@font/font_greek"
         android:padding="15dp"
         android:text="Start"
         android:textAppearance="?android:textAppearanceLarge"
-        android:textColor="@color/design_default_color_error"
 
+        android:textColor="@color/design_default_color_error"
         android:textSize="48sp" />
 
     <TextView
@@ -66,6 +75,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="0dp"
 
+        android:layout_weight="1"
         android:alpha="0"
         android:gravity="center"
         android:paddingBottom="0dp"
@@ -79,6 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
         android:alpha="0"
         android:ems="10"
         android:gravity="center_horizontal"
@@ -90,17 +101,11 @@
         android:layout_width="179dp"
         android:layout_height="55dp"
         android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
         android:alpha="0"
         android:fontFamily="@font/font_greek"
         android:text="Submit"
         android:textColor="#E10707"
         android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/textView_workout_invisibileCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="@color/cardview_dark_background" />
 
 </LinearLayout>
