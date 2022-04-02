@@ -198,10 +198,6 @@ public class WorkoutActivity extends AppCompatActivity {
         });
     }
 
-    void cancelMe(){
-
-    }
-
     void setupSpinner() {
 
         WorkoutData workoutData = new WorkoutData();
