@@ -190,6 +190,9 @@ public class WorkoutActivity extends AppCompatActivity {
 
     void setupSpinner() {
 
+        WorkoutData workoutData = new WorkoutData();
+        ImageView imageView = findViewById(R.id.gif_workout);
+
         ArrayAdapter<CharSequence> arrAdapter = ArrayAdapter.createFromResource(this,
                 R.array.workout_list, android.R.layout.simple_spinner_dropdown_item);
 
@@ -208,6 +211,9 @@ public class WorkoutActivity extends AppCompatActivity {
                     case "Push Ups":
                     case "Dips":
                     case "Pull Ups":
+                        workoutData.set_workout(spinner.getSelectedItem().toString());
+                        timers(workoutData.getWorkoutTime());
+                        imageView.setImageResource(workoutData.get_image());
                         System.out.println(spinner.getSelectedItem().toString());
                         defaultText.setVisibility(View.GONE);
                         updateComponents(spinner.getSelectedItem().toString());
@@ -218,6 +224,9 @@ public class WorkoutActivity extends AppCompatActivity {
                     case "Squats":
                     case "Lunges":
                     case "Deadlift":
+                        workoutData.set_workout(spinner.getSelectedItem().toString());
+                        timers(workoutData.getWorkoutTime());
+                        imageView.setImageResource(workoutData.get_image());
                         System.out.println(spinner.getSelectedItem().toString());
                         defaultText.setVisibility(View.GONE);
                         updateComponents(spinner.getSelectedItem().toString());
@@ -230,6 +239,9 @@ public class WorkoutActivity extends AppCompatActivity {
                     case "Plank":
                     case "Leg Raises":
                     case "Elbow to knee":
+                        workoutData.set_workout(spinner.getSelectedItem().toString());
+                        timers(workoutData.getWorkoutTime());
+                        imageView.setImageResource(workoutData.get_image());
                         System.out.println(spinner.getSelectedItem().toString());
                         defaultText.setVisibility(View.GONE);
                         updateComponents(spinner.getSelectedItem().toString());
