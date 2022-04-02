@@ -67,5 +67,9 @@
     <string name="settings_easy">EASY</string>
     <string name="settings_medium">MEDIUM</string>
     <string name="settings_hard">HARD</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="splash_image">TODO</string>
+    <string name="splash_title">TITAN</string>
 
 </resources>
