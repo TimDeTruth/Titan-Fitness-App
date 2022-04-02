@@ -35,6 +35,15 @@ public class HomeActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         name.setAlpha(0);
+
+        FirebaseUser currentUser = auth.getCurrentUser();
+        Intent intentLogin = new Intent(this, MainActivity.class);
+        if(currentUser == null){
+            intentLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intentLogin);
+            finish();
+        }
+
         getUsername();
         Intent intentExercise = new Intent(this, WorkoutActivity.class);
         Intent intentProgress = new Intent(this, ProgressActivity.class);
@@ -96,12 +105,6 @@ public class HomeActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = auth.getCurrentUser();
-        Intent intentLogin = new Intent(this, MainActivity.class);
-        if(currentUser == null){
-            intentLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intentLogin);
-            finish();
-        }
+
     }
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,25 +52,39 @@ public class SignUpActivity extends AppCompatActivity {
         Intent intentHome = new Intent(this, HomeActivity.class);
 
         auth.createUserWithEmailAndPassword(user.getEmail(), password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                db.collection("users").document(authResult.getUser().getUid())
-                .set(user)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        intentHome.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intentHome);
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("Debug", "Error writing document", e);
-                    }
-                });
 
+                @Override
+                public void onSuccess(AuthResult authResult) {
+
+                    db.collection("users").document(authResult.getUser().getUid())
+                            .set(user)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+
+                                    Toast.makeText(SignUpActivity.this, "Authentication Collection Success!!!!!.",
+                                            Toast.LENGTH_SHORT).show();
+                                    intentHome.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intentHome);
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("Debug", "Error writing document", e);
+                                    Toast.makeText(SignUpActivity.this, "Authentication Collection failed!!!.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                }
+
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(SignUpActivity.this, "Authentication failed!!!.",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
