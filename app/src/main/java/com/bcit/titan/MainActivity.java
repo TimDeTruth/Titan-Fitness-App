@@ -40,6 +40,15 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Name(s)  :   Paul Kim, Timmy Lau, Arno Pan
+ * Class    :   3717 - Android Development
+ * Set      :   3S
+ * Term     :   Winter 2022
+ * Date     :   04/03/2022
+ * Note     :   Final Version - Latest correction: Null crash in pie chart.
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
