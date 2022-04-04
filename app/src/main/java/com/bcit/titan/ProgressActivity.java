@@ -35,9 +35,9 @@ public class ProgressActivity extends AppCompatActivity {
     FirebaseFirestore db;
     FirebaseAuth auth;
 
-    float core;
-    float upper;
-    float lower;
+    float core = 0f;
+    float upper = 0f;
+    float lower = 0f;
 
 
     @Override
@@ -185,9 +185,17 @@ public class ProgressActivity extends AppCompatActivity {
     }
 
     private void chart(DocumentSnapshot document){
-        upper = Float.parseFloat(document.getData().get("upper").toString());
-        core = (Float) Float.parseFloat(document.getData().get("core").toString());
-        lower = (Float) Float.parseFloat(document.getData().get("lower").toString());
+        if (document.getData().get("upper") != null) {
+            upper = Float.parseFloat(document.getData().get("upper").toString());
+        }
+        if (document.getData().get("core") != null) {
+            core = Float.parseFloat(document.getData().get("core").toString());
+        }
+        if (document.getData().get("lower") != null) {
+            lower = Float.parseFloat(document.getData().get("lower").toString());
+        }
+
+
 
 
         System.out.println(upper + " " + core + " " + lower);
