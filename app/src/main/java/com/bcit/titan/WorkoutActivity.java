@@ -82,50 +82,7 @@ public class WorkoutActivity extends AppCompatActivity {
         repsEditText.setEnabled(false);
         submit.setEnabled(false);
 
-//        Bundle inBundle = getIntent().getExtras();
-//        String[] selectedWorkout = inBundle.getStringArray("WORKOUTKEY");
-//
-//        String user_email = selectedWorkout[4];
-//        TextView toUpdate = findViewById(R.id.textView_workout_invisibileCategory);
-//        DocumentReference docref = db.collection("users").document(user_email);
-//        docref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                up = documentSnapshot.getString("Upper");
-//                co = documentSnapshot.getString("Core");
-//                lo = documentSnapshot.getString("Lower");
-//            }
-//        });
-////        docref.addSnapshotListener(this, (documentSnapShot, error) -> {
-////            up.concat(documentSnapShot.getString("Upper").toString());
-////            co = documentSnapShot.getString("Core");
-////            lo = documentSnapShot.getString("Lower");
-////        });
-//
-//        System.out.println("Workout Activity upper is " + up.toString() + " core is " + co.toString() + " lower is " + lo);
-//
-//
-//        if(selectedWorkout[3].equals("upper")){
-//            docref.addSnapshotListener(this, (documentSnapShot, error) -> {
-//                toUpdate.setText(documentSnapShot.getString("Upper"));
-//            });
-//        }else if(selectedWorkout[3].equals("core")){
-//            docref.addSnapshotListener(this, (documentSnapShot, error) -> {
-//                toUpdate.setText(documentSnapShot.getString("Core"));
-//            });
-//        }else if(selectedWorkout[3].equals("lower")){
-//            docref.addSnapshotListener(this, (documentSnapShot, error) -> {
-//                toUpdate.setText(documentSnapShot.getString("Lower"));
-//            });
-//        }else{
-//            System.out.println("Not possible.");
-//        }
-//
-//
-
-
         setupSpinner();
-//        refresh();
 
         submit = findViewById(R.id.button_workout_submit);
         Intent intent = new Intent(this, ProgressActivity.class);
@@ -308,12 +265,6 @@ public class WorkoutActivity extends AppCompatActivity {
         repsEditText.setAlpha(1);
         submit.setAlpha(1);
         title.setText(workoutTitle);
-
-
-
-
     }
-
-
 
 }

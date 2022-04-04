@@ -7,6 +7,9 @@
     <string name="app_sign_up">Sign Up</string>
     <string name="all_shall_kneel_before_us">All shall kneel before us</string>
     <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
 
     <string-array name="workout_list">
         <item>- Choose exercise -</item>
@@ -71,5 +74,6 @@
     <string name="hint_password">Password</string>
     <string name="splash_image">TODO</string>
     <string name="splash_title">TITAN</string>
+    <string name="settings_text">Please click submit after you finish edit</string>
 
 </resources>

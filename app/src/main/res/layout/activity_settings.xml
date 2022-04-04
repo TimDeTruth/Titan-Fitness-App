@@ -8,6 +8,16 @@
     android:orientation="vertical"
     tools:context=".SettingsActivity">
 
+    <TextView
+        android:id="@+id/textView_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:gravity="center"
+        android:text="@string/settings_text"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
     <EditText
         android:id="@+id/editText_settings_username"
         android:layout_width="wrap_content"
@@ -19,34 +29,38 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="Username"
+        android:text="@string/username"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white" />
 
     <EditText
-        android:id="@+id/editText_settings_confrim_password"
+        android:id="@+id/editText_settings_firstname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginVertical="30dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginTop="44dp"
         android:layout_weight="1"
         android:ems="10"
-        android:hint="Confirm Password"
-        android:inputType="textPassword"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="@string/firstname"
+        android:textColor="#FFFFFF"
         android:textColorHint="@color/white" />
 
     <EditText
-        android:id="@+id/editText_settings_password"
+        android:id="@+id/editText_settings_lastname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginVertical="30dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginTop="44dp"
         android:layout_weight="1"
         android:ems="10"
-        android:hint="New Password"
-        android:inputType="textPassword"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="@string/lastname"
+        android:textColor="#FFFFFF"
         android:textColorHint="@color/white" />
 
     <LinearLayout
@@ -94,7 +108,8 @@
         android:layout_marginBottom="50dp"
         android:layout_weight="4"
         android:fontFamily="sans-serif-medium"
-        android:text="Submit"
+        android:onClick="submitChange"
+        android:text="@string/submit"
         android:textColor="@color/design_default_color_error"
         android:textSize="48sp" />
 
@@ -103,7 +118,7 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:layout_weight="4"
-        android:text="Logout"
+        android:text="@string/app_log_out"
         android:textColor="@color/design_default_color_error" />
 
 </LinearLayout>
